@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Measure an entire arXiv crawler run on Colab CPU-only.
 
-Execute the crawler phases in a fresh output folder. Poll the crawler's
-process tree for RSS and its output directory for disk consumption. This
-script does not fill in benchmark results from historic Windows logs.
+Execute all five required crawler phases in a fresh output folder. Poll the
+crawler's process tree for RSS and its output directory for disk consumption.
+This script does not fill in benchmark results from historic Windows logs.
 
 Example from a Google Colab cell after uploading this file and crawler.py:
 
@@ -19,13 +19,14 @@ The script refuses an existing nonempty output directory to avoid overwrites.
 
 import argparse
 import json
-import os
 from pathlib import Path
 import subprocess
 import sys
 import time
 import shutil
 from datetime import datetime, timezone
+
+REQUIRED_PHASES = ("discover", "metadata", "sources", "references", "enrich-refs")
 
 
 def now_utc():
@@ -60,8 +61,19 @@ def disk_usage_bytes(folder):
     return int(result.stdout.split()[0])
 
 
-def bytes_or_none(v):
-    return None if v is None else int(v)
+def has_full_coverage(summary, completed_phases):
+    return (
+        all(phase in completed_phases for phase in REQUIRED_PHASES)
+        and summary.get("assigned_ids") == 5000
+        and summary.get("assigned_start") == "2607.13694"
+        and summary.get("assigned_end") == "2607.18693"
+        and summary.get("discovered_papers") == 5000
+        and summary.get("pending_discovery") == 0
+        and summary.get("pending_source_versions") == 0
+        and summary.get("pending_s2_papers") == 0
+        and summary.get("pending_exact_version_metadata") == 0
+        and summary.get("reference_date_enrichment_rate") == 1.0
+    )
 
 
 def build_report(state, output, sample_interval, disk_interval):
@@ -73,14 +85,13 @@ def build_report(state, output, sample_interval, disk_interval):
         "testbed_verified": state.get("testbed_verified", False),
         "end_to_end_runtime_verified": bool(
             state["all_phases_completed"] and state.get("testbed_verified")
-            and (not state.get("requires_ref_dates") or
-                 state["summary"].get("reference_date_enrichment_rate") == 1.0)
         ),
         "run_started_at": state["started_at"],
         "run_finished_at": state.get("finished_at"),
         "assigned_ids": 5000,
         "start_arxiv_id": "2607.13694",
         "end_arxiv_id": "2607.18693",
+        "required_phases": list(REQUIRED_PHASES),
         "phase_wall_seconds": state["phase_wall_seconds"],
         "end_to_end_runtime_seconds": total_seconds,
         "average_seconds_per_required_paper": (
@@ -109,7 +120,7 @@ def build_report(state, output, sample_interval, disk_interval):
             "Wall time includes the measured crawler phase processes and phase handoffs.",
             "RSS is sampled for crawler process trees; a discrete sampling peak may miss short spikes.",
             "Peak disk is the maximum sampled du usage, not a continuous-time mathematical maximum.",
-            "The final benchmark is valid only when all phases complete and the 5000-paper summary passes checks."
+            "The final benchmark is valid only when all five required phases complete and the 5000-paper summary passes coverage checks."
         ],
     }
 
@@ -184,8 +195,6 @@ def main():
     parser.add_argument("--disk-every", type=float, default=30.0)
     parser.add_argument("--cooldown-minutes", type=float, default=60.0)
     parser.add_argument("--max-cooldowns", type=int, default=2)
-    parser.add_argument("--with-enrich-refs", action="store_true",
-                        help="Include required reference first-submission-date enrichment")
     args = parser.parse_args()
     try:
         import google.colab  # type: ignore[reportMissingImports]  # noqa: F401
@@ -208,19 +217,15 @@ def main():
             "Choose a NEW benchmark folder; do not delete checkpoints."
         )
     args.output.mkdir(parents=True, exist_ok=True)
-    phases = ["discover", "metadata", "sources", "references"]
-    if args.with_enrich_refs:
-        phases.append("enrich-refs")
     state = {
         "started_at": now_utc(), "finished_at": None,
         "phase_wall_seconds": {}, "ram_samples": [], "disk_samples": [],
         "phase_failures": [], "summary": {}, "all_phases_completed": False,
         "end_to_end_runtime_seconds": None, "testbed_verified": True,
-        "requires_ref_dates": args.with_enrich_refs,
     }
     started = time.monotonic()
     try:
-        for phase in phases:
+        for phase in REQUIRED_PHASES:
             status = run_one_phase(args, state, phase)
             if status != 0:
                 state["phase_failures"].append({"phase": phase, "exit_code": status})
@@ -238,20 +243,12 @@ def main():
                 "pending_exact_version_metadata", "output_disk_bytes",
                 "average_observed_paper_seconds", "maximum_observed_paper_seconds",
                 "total_versions_metadata_exact", "references_with_arxiv_id",
-                "reference_date_enrichment_rate",
+                "reference_date_enrichment_rate", "assigned_start", "assigned_end",
             ]
             state["summary"] = {k: raw.get(k) for k in keys}
-            state["all_phases_completed"] = (
-                raw.get("assigned_ids") == 5000
-                and raw.get("discovered_papers") == 5000
-                and raw.get("pending_discovery") == 0
-                and raw.get("pending_source_versions") == 0
-                and raw.get("pending_s2_papers") == 0
-                and raw.get("pending_exact_version_metadata") == 0
-                and (not args.with_enrich_refs or
-                     raw.get("reference_date_enrichment_rate") == 1.0)
+            state["all_phases_completed"] = has_full_coverage(
+                raw, state["phase_wall_seconds"]
             )
-        state["requires_ref_dates"] = args.with_enrich_refs
 
     finally:
         state["end_to_end_runtime_seconds"] = round(time.monotonic() - started, 3)

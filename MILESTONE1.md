@@ -74,6 +74,17 @@ python .\src\crawler.py --phase all --discovery-backend oai --enrich-backend oai
 
 The `all` mode with OAI deliberately **does not assert exact historical metadata**. Use `--phase metadata` separately when the arXiv Atom API can serve versioned requests. `--phase all` may take hours/days for 5,000 IDs and citations; keep a reliable connection, disk capacity, and an appropriate runtime (Google Colab CPU-only for final benchmark). Run just one crawler process at a time.
 
+For the final end-to-end CPU benchmark, upload `run_colab_full_benchmark.py` alongside the crawler and run it inside a Colab CPU-only runtime:
+
+```python
+!python /content/run_colab_full_benchmark.py \
+    --crawler /content/milestone1/src/crawler.py \
+    --output /content/milestone1/full_cpu_benchmark \
+    --report /content/drive/MyDrive/Milestone1_Backup/benchmark_source_full_colab.json
+```
+
+The benchmark runs discovery, exact version metadata, source downloads, Semantic Scholar references, and reference-date enrichment in sequence. It rejects a nonempty output folder and reports full coverage only when all five phases finish and the 5,000-ID summary has no pending work and complete reference-date enrichment. It can take many hours and make external API requests.
+
 ## Live progress, without disrupting a running crawl
 
 In a **second terminal** pointed at `source_repo`, type:
