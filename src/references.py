@@ -1,10 +1,10 @@
-"""Giai doan 3b - Tao references.json cho tung bai qua Semantic Scholar (ban nhanh, pipeline).
+"""Thu thap references.json cho tung bai qua Semantic Scholar (pipeline).
 
 Dau ra: data/{yymm-id}/references.json + data/references_status.json.
 Theo de bai ("keep all crawled references locally"), MAC DINH giu TAT CA reference
 Semantic Scholar tra ve; moi muc co truong "arxiv_id" (null neu khong co). Chi
-nhung muc co arxiv_id moi thanh hang cua bang `references` o Milestone 3 (loc
-o buoc do). Dung --arxiv-only de chi giu reference co arXiv ID (hanh vi cu).
+nhung muc co arxiv_id duoc dung de loc bang references. Dung --arxiv-only de
+chi giu reference co arXiv ID (hanh vi cu).
 Key: yymm-id cho reference co arXiv ID (ID cu truoc 2007 giu nguyen, vd
 hep-th/9901001); "s2-<paperId>" cho reference khac.
 Chay lai tiep tuc duoc tu trang thai cu.

@@ -1,4 +1,4 @@
-# Milestone 2 Extension 
+# Milestone 2 — Hierarchical Parsing and Standardization
 
 Official specifications:
 
@@ -119,4 +119,3 @@ The report's GitHub Actions workflow deploys the built book to GitHub Pages.
 - The hierarchy is modeled as distinct cleaned elements + per-version edges. Identical repeated text within one version can share an element, making it a content-addressed graph rather than a strictly occurrence-unique tree. This matches the distinct-elements table schema but may require occurrence-level metadata for further tasks.
 - The downloaded corpus intentionally has no figure binaries; figure elements can retain caption/LaTeX references but cannot recover image pixels. Some source archives have no `.tex` or only missing `\documentclass` files.
 - Performance is environment-specific. The course requires final benchmark on **Google Colab CPU-only**; local measurements are not that benchmark. A resumed run's invocation wall time does not include prior interrupted runs.
-- Milestone 2 is a foundation for Milestone 3. This code does **not** implement Milestone 3 matching or publish the dataset.
