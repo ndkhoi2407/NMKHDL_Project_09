@@ -105,7 +105,12 @@ These JSONL schemas follow the table columns described in the assignment, and th
 
 ## Report and tests
 
-The `--report ../report_repo` option **creates only new** `report_data/milestone2_summary.json` and `report_data/milestone2_status.csv`. The original Mile 1 notebook, original `_toc.yml`, report config, and report README stay byte-identical. Run `python report_repo/build_combined.py` from the root of the extracted ZIP (after installing `report_repo/requirements.txt`) to stage an expanded table of contents in a temporary directory and build a combined book without editing any original Milestone 1 files.
+The `--report` option creates only the Milestone 2 aggregate summary and
+status files in the selected report repository's `report_data/` directory.
+The report repository is separate from the source-code repository and contains
+the cumulative Milestone 1 and 2 notebooks. Its `_toc.yml` lists both chapters;
+build the book from the report repository root with `jupyter-book build .`.
+The report's GitHub Actions workflow deploys the built book to GitHub Pages.
 
 ## Limitations (do not overclaim accuracy)
 
