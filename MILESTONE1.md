@@ -2,7 +2,7 @@
 
 **Course:** HCMUS Introduction to Data Science  
 **Assigned IDs:** `2607.13694` through `2607.18693` (5,000 base IDs, inclusive).  
-**Specification:** https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/
+**Specification:** [Milestone 1 — Data Crawling](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/)
 
 A single-process, conservative arXiv + Semantic Scholar data collector with per-paper checkpoints, safety-limited extraction, resume, CSV/JSONL exports, RAM and disk statistics, an offline status view, and an offline audit.
 
