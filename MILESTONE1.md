@@ -1,4 +1,4 @@
-# arXiv Milestone 1 — Data Crawling
+# Milestone 1 — Data Crawling
 
 **Course:** HCMUS Introduction to Data Science  
 **Assigned IDs:** `2607.13694` through `2607.18693` (5,000 base IDs, inclusive).  
