@@ -67,6 +67,12 @@ methodology, outputs, limitations, and audit details.
 
 ## Report
 
-The cumulative Milestone 1 and 2 Jupyter Book is maintained in the separate
-public report repository and hosted on GitHub Pages. Submit its live Pages URL
-alongside this source repository URL.
+The cumulative Milestone 1 and 2 report is maintained in a separate repository
+and hosted on GitHub Pages:
+
+- **Read the report:** https://thieuquang18.github.io/NMKHDL_report/
+- **Report source (branch `24127114`):**
+  https://github.com/thieuquang18/NMKHDL_report/tree/24127114
+
+The report repository is separate from this shared source-code repository.
+Submit both the source repository URL and the live report URL.
