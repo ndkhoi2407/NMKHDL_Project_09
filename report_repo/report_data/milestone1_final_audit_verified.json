@@ -1,0 +1,51 @@
+{
+  "scope": "Milestone 1 saved crawling results",
+  "publications": 5000,
+  "versions": 6417,
+  "stats": {
+    "publications": 5000,
+    "versions": 6417,
+    "versions_metadata_found": 6417,
+    "metadata_id_present": 6417,
+    "tex_files": 20947,
+    "bib_files": 4579,
+    "versions_with_tex_or_bib": 6105,
+    "versions_reference_data_found": 6417,
+    "reference_entries_max_per_version_total": 220012,
+    "versions_without_tex_or_bib": 291,
+    "versions_without_source_directory": 21,
+    "metadata_title_present": 6417,
+    "metadata_authors_present": 6417
+  },
+  "reference_arxiv_pairs_identified": 80751,
+  "json_filenames": {
+    "metrics.json": 6417,
+    "paper.json": 6417,
+    "references_all.json": 6417,
+    "versions_oai.json": 6417,
+    "metadata.json": 6417,
+    "source_status.json": 6417
+  },
+  "metadata_keys": {
+    "arxiv_id": 6417,
+    "status": 6417,
+    "latest_version": 6417,
+    "latest_metadata": 6417,
+    "discovery_backend": 6417,
+    "discovered_at": 6417
+  },
+  "error_count": 0,
+  "warning_count": 0,
+  "errors": [],
+  "warnings": [],
+  "metadata_verification": {
+    "publications": 5000,
+    "versions": 6417,
+    "titles_present": 6417,
+    "authors_present": 6417,
+    "missing_or_invalid": 0,
+    "status": "PASS",
+    "source": "milestone1_metadata_verified.json"
+  },
+  "audit_status": "PASS"
+}

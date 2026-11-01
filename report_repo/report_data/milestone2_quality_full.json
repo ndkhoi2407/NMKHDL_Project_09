@@ -1,0 +1,11 @@
+{
+  "scope": "full",
+  "counts": {
+    "publications": 5000,
+    "versions": 6417,
+    "ok": 6105,
+    "empty": 312
+  },
+  "problem_count": 0,
+  "problems": []
+}

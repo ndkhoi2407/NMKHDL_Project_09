@@ -1,0 +1,13 @@
+﻿**/__pycache__/
+**/*.pyc
+**/.venv/
+**/.vscode/
+**/.pytest_cache/
+**/.ipynb_checkpoints/
+**/_build/
+**/_build_combined/
+**/*.bak
+**/*.sqlite
+**/*.zip
+data/
+source_repo/data/

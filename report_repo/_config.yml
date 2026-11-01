@@ -1,0 +1,25 @@
+title: 'Milestones 1–3 | arXiv Data Pipeline'
+author: ''
+copyright: ''
+execute:
+  execute_notebooks: force
+  timeout: 600
+  allow_errors: false
+sphinx:
+  config:
+    # The static report uses saved notebook outputs; disable Thebe's duplicate
+    # inline JavaScript declarations in generated HTML.
+    extensions:
+      - sphinx_togglebutton
+      - sphinx_copybutton
+      - myst_nb
+      - jupyter_book
+      - sphinx_comments
+      - sphinx_external_toc
+      - sphinx.ext.intersphinx
+      - sphinx_design
+      - sphinx_book_theme
+html:
+  use_repository_button: false
+  use_issues_button: false
+extra_footer: 'Reproducible report - calculated from measured crawler logs.'

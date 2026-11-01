@@ -1,0 +1,13 @@
+{
+  "statistics": {
+    "papers": 5000,
+    "readable_files": 5000,
+    "total_references": 168410,
+    "papers_with_references": 4630,
+    "references_with_arxiv_id": 80752,
+    "references_without_arxiv_id": 87658,
+    "papers_with_zero_references": 370
+  },
+  "problem_count": 0,
+  "problems": []
+}
