@@ -1,4 +1,4 @@
-# Milestone 2 Extension — keep Milestone 1 untouched
+# Milestone 2 Extension 
 
 Official specifications:
 
