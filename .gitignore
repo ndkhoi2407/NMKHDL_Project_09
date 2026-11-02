@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Project data / crawled corpus
+data/
+
+# Benchmark runs and backups
+benchmark-e2e/
+benchmark-e2e-run*/
+benchmark-e2e-run*-backup/
+
+# Logs
+logs/
+*.log
+
+# Local environment / secrets
+.env
+*.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
