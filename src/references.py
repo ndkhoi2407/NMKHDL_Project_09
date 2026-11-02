@@ -44,11 +44,11 @@ S2_FIELDS = ["paperId", "title", "authors", "year", "externalIds",
              "publicationDate"]
 S2_API_KEY = os.environ.get("S2_API_KEY")
 # Khong co key: toi da 100 request/5 phut => cach nhau >= 3s. Co key: 1 request/s.
-S2_DELAY = 2.0 if S2_API_KEY else 3.1
+S2_DELAY = 3.0 if S2_API_KEY else 3.1
 ARXIV_DELAY = 3
 ARXIV_BATCH = 50
 ARXIV_ROUNDS = 2        # so lan hoi arXiv cho ID chua thay (API doi khi tra thieu)
-CHUNK_SIZE = 50      # so bai xu ly truoc moi lan tra ngay arXiv
+CHUNK_SIZE = 20      # so bai xu ly truoc moi lan tra ngay arXiv
 TIMEOUT = 60
 MAX_RETRIES = 5
 MAX_WAIT = 300
