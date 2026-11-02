@@ -1,4 +1,4 @@
-# NMKHDL Project 09 — Source Code
+# NMKHDL GROUP 09 — Source Code
 
 HCMUS Introduction to Data Science project source repository.
 
