@@ -24,7 +24,7 @@ The pipeline performs the following tasks:
 
 ```text
 arxiv-milestone1/
-├── data/
+├── data/           # Local working data; not committed to Git
 │   ├── <paper-id>/
 │   │   ├── v1/
 │   │   ├── v2/
@@ -38,7 +38,7 @@ arxiv-milestone1/
 │   ├── timings.json
 │   └── benchmark/
 │
-├── src/
+├── src/            # Source code
 │   ├── discover.py
 │   ├── download_sources.py
 │   ├── process_sources.py
@@ -173,13 +173,29 @@ These files allow failed or incomplete operations to be identified without losin
 
 ## 9. Benchmark
 
-Benchmark information can be generated using:
+The project provides an end-to-end benchmark script for measuring the performance of the complete M1 pipeline, including discovery, source downloading, source processing, metadata crawling, and reference crawling.
 
-```powershell
-python src/benchmark.py --report-only
+The benchmark records:
+- Total runtime
+- Average time per paper
+- Step-by-step runtime
+- Peak and average RAM usage
+- Peak disk usage
+- Final corpus size
+- Number of papers and versions processed
+- Download and processing success rates
+
+To run the end-to-end benchmark:
+
+```bash
+python src/benchmark.py --prefix 2608 --start 24007 --end 29006
 ```
 
-The report-only mode calculates statistics from the existing corpus without downloading the dataset again.
+For an existing benchmark output, the report-only mode can be used to inspect or regenerate benchmark statistics without rerunning the full pipeline:
+
+```bash
+python src/benchmark.py --report-only
+```
 
 Benchmark output is stored in:
 
@@ -240,7 +256,7 @@ To reproduce the experiment:
 6. Process downloaded sources.
 7. Retrieve metadata.
 8. Retrieve references.
-9. Generate benchmark statistics.
+9. Run the end-to-end benchmark and generate benchmark statistics.
 
 The generated status files can be used to inspect successful, failed, and unavailable records.
 
@@ -254,4 +270,4 @@ The full-scale crawl was performed on the target ID range:
 
 The final corpus contains all 5,000 IDs in the requested range.
 
-End-to-end runtime and peak RAM for the original full-scale run were not recorded reliably and are therefore not reported as measured benchmark values.
+Benchmark performance will be reported based on an end-to-end benchmark run in a CPU-only Google Colab environment, as required by the project specification.
