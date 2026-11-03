@@ -4,7 +4,7 @@ Milestones 1 and 2 of **Introduction to Data Science**, University of Science, V
 
 - Source branch: [`24127121`](https://github.com/ndkhoi2407/NMKHDL_Project_09/tree/24127121)
 - Report repository: [TienThanh1234/arXiV-project](https://github.com/TienThanh1234/arXiV-project)
-- Intended report address: `https://tienthanh1234.github.io/arXiV-project/` — publication is pending verification; this is not yet a verified submission link.
+- Verified public report: [Group 09 Jupyter Book](https://tienthanh1234.github.io/arXiV-project/). The homepage, both milestone chapters and evidence pages were verified after successful GitHub Pages deployment.
 - Official specifications: [Milestone 1](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/), [Milestone 2](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/parsing/).
 
 ## Environment setup
