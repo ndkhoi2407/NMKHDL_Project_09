@@ -95,6 +95,8 @@ def query_batch(client: arxiv.Client, ids: list[str]) -> dict:
                 "versions": [f"v{i}" for i in range(1, latest + 1)],
                 "title": " ".join(r.title.split()),
                 "authors": [a.name for a in r.authors],
+                "venue": getattr(r, "journal_ref", None),
+                "metadata_identifier": r.get_short_id(),
                 "published": r.published.date().isoformat(),
                 "updated": r.updated.date().isoformat(),
             }

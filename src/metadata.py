@@ -4,7 +4,8 @@ Lay title/authors/published tu data/discovery.json.
 - Bai chi co v1: du thong tin, KHONG can goi them request nao.
 - Bai nhieu phien ban: lay ngay cua TUNG phien ban tu OAI-PMH
   (metadataPrefix=arXivRaw).
-Khong luu venue (de bai chi yeu cau neu co: "if applicable").
+Preserves venue/journal reference when supplied; --versioned fetches actual
+versioned API records with explicit identifiers and retrieval provenance.
 
 Chay tu thu muc goc project:
     python src/metadata.py
@@ -20,7 +21,7 @@ import json
 import os
 import time
 import xml.etree.ElementTree as ET
-from datetime import timezone
+from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 
@@ -113,6 +114,11 @@ def make_meta(paper: dict, versions: list[tuple[str, str]]) -> dict:
         "authors": paper["authors"],
         "submission_date": dates[0],
         "revised_dates": dates if INCLUDE_V1_IN_REVISED else dates[1:],
+        "venue": paper.get("venue") or paper.get("journal_ref"),
+        "versions": {version: {"date": date} for version, date in versions},
+        "provenance": {"title_authors_scope": "discovery latest-version snapshot; not historical version metadata",
+                       "metadata_identifier": paper.get("metadata_identifier"),
+                       "discovered_latest_version": paper.get("latest_version")},
     }
 
 
@@ -122,7 +128,34 @@ def build_metadata_oai(paper: dict, root: ET.Element) -> tuple[dict, str]:
     if len(versions) != paper["latest_version"]:
         warning = (f"discovery bao {paper['latest_version']} phien ban, "
                    f"OAI tra ve {len(versions)}")
-    return make_meta(paper, versions), warning
+    metadata = make_meta(paper, versions)
+    for element in root.iter():
+        if element.tag.rsplit("}", 1)[-1] in {"journal-ref", "journal_ref"} and element.text:
+            metadata["venue"] = element.text.strip()
+            metadata["provenance"]["venue_source"] = "OAI arXivRaw journal-ref"
+            break
+    metadata["provenance"]["version_dates_source"] = "OAI arXivRaw"
+    return metadata, warning
+
+
+def version_metadata(client, paper: dict):
+    """Fetch actual versioned API records, never copy latest titles into past versions."""
+    import arxiv
+    out = {}
+    for version in paper["versions"]:
+        identifier = paper["id"] + version
+        records = list(client.results(arxiv.Search(id_list=[identifier], max_results=1)))
+        if len(records) != 1 or records[0].get_short_id() != identifier:
+            raise ValueError(f"Versioned metadata response does not match {identifier}")
+        record = records[0]
+        out[version] = {"title": " ".join(record.title.split()),
+                        "authors": [a.name for a in record.authors],
+                        "submission_date": record.published.date().isoformat(),
+                        "revision_date": record.updated.date().isoformat(),
+                        "venue": getattr(record, "journal_ref", None),
+                        "provenance": {"request_identifier": identifier, "returned_identifier": record.get_short_id(),
+                                       "source": "arXiv versioned API", "retrieved_at": datetime.now(timezone.utc).isoformat()}}
+    return out
 
 
 def write_meta(out_dir: Path, meta: dict):
@@ -134,12 +167,18 @@ def write_meta(out_dir: Path, meta: dict):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--ids", help="comma-separated publication IDs for a targeted run")
+    ap.add_argument("--refresh", action="store_true", help="explicitly refresh selected existing records")
+    ap.add_argument("--versioned", action="store_true", help="fetch actual metadata for each version")
     args = ap.parse_args()
 
     if not DISCOVERY.exists():
         raise SystemExit(f"Khong tim thay {DISCOVERY.resolve()}. "
                          "Chay discover.py truoc, tu thu muc goc project.")
     papers = json.loads(DISCOVERY.read_text(encoding="utf-8"))["papers"]
+    if args.ids:
+        wanted = set(args.ids.split(","))
+        papers = [p for p in papers if p["id"] in wanted]
     if args.limit:
         papers = papers[:args.limit]
     if papers and "authors" not in papers[0]:
@@ -153,13 +192,26 @@ def main():
     try:
         for p in papers:
             out_dir = DATA_DIR / p["folder"]
-            if ((out_dir / "metadata.json").exists()
+            version_file = out_dir / "metadata_versions.json"
+            versioned_complete = False
+            if args.versioned and version_file.exists():
+                previous = json.loads(version_file.read_text(encoding="utf-8"))
+                versioned_complete = all(
+                    previous.get(v, {}).get("provenance", {}).get("returned_identifier") == p["id"] + v
+                    for v in p["versions"])
+            if (not args.refresh and (not args.versioned or versioned_complete) and (out_dir / "metadata.json").exists()
                     and status.get(p["id"], {}).get("status") == "ok"):
                 print(f"[METADATA] Bo qua {p['id']} (da xong)")
                 continue
 
             used_network = False
             try:
+                if args.versioned:
+                    import arxiv
+                    snapshots = version_metadata(arxiv.Client(delay_seconds=3, page_size=1), p)
+                    out_dir.mkdir(parents=True, exist_ok=True)
+                    (out_dir / "metadata_versions.json").write_text(
+                        json.dumps(snapshots, indent=2, ensure_ascii=False), encoding="utf-8")
                 if p["latest_version"] == 1:
                     # Chi co v1: ngay nop = published, khong can OAI-PMH
                     meta = make_meta(p, [("v1", p["published"])])

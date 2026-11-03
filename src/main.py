@@ -48,6 +48,8 @@ STATUS_FILES = {
 
 def build_command(step: str, script: str, a: argparse.Namespace) -> list[str]:
     cmd = [sys.executable, str(SRC_DIR / script)]
+    if step == "metadata":
+        cmd.append("--versioned")
     if step == "discover":
         cmd += ["--prefix", a.prefix, "--start", str(a.start), "--end", str(a.end)]
         if a.fresh_discover:

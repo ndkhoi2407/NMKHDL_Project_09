@@ -40,6 +40,7 @@ import sys
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime, timezone
 from pathlib import Path
 
 import arxiv
@@ -202,6 +203,8 @@ def candidate_refs(refs: list | None, arxiv_only: bool = False) -> dict:
     (bo qua neu --arxiv-only hoac khong co ca paperId lan title)."""
     out = {}
     for n, ref in enumerate(refs or []):
+        if not isinstance(ref, dict):
+            continue  # retained verbatim in references_raw.json
         raw = (ref.get("externalIds") or {}).get("ArXiv")
         if raw:
             raw_base = VERSION_SUFFIX.sub("", raw.strip())
@@ -267,6 +270,19 @@ def build_references(cands: dict, arxiv_dates: dict) -> tuple[dict, int, int]:
     return out, complete, from_s2
 
 
+def preserve_response(paper: dict, response, arxiv_only: bool, lookup_status="ok"):
+    out_dir = DATA_DIR / paper["folder"]
+    out_dir.mkdir(parents=True, exist_ok=True)
+    save_json(out_dir / "references_raw.json", response)
+    save_json(out_dir / "references_provenance.json", {
+        "request_identifier": f"ARXIV:{paper['id']}", "scope": "publication-level Semantic Scholar response",
+        "retrieved_at": datetime.now(timezone.utc).isoformat(), "lookup_status": lookup_status,
+        "version_specific": False,
+        "versions": {v: {"response": "references_raw.json", "scope": "shared publication-level lookup; not a version-specific bibliography"}
+                     for v in paper.get("versions", [])},
+        "projection": "arxiv-only" if arxiv_only else "all-identifiable-references"})
+
+
 def s2_phase(chunk: list, status: dict, arxiv_only: bool) -> tuple[dict, int]:
     """Goi S2 cho cum; ghi ngay cac bai khong co ban ghi / loi.
     Tra ve (fetched {pid: (p, total, cands)}, so_bai_loi_tam_thoi)."""
@@ -280,6 +296,7 @@ def s2_phase(chunk: list, status: dict, arxiv_only: bool) -> tuple[dict, int]:
         pid = p["id"]
         data, note = results[pid]
         if data is None and note == "NOT_FOUND":
+            preserve_response(p, None, arxiv_only, "not_found")
             out_dir = DATA_DIR / p["folder"]
             out_dir.mkdir(parents=True, exist_ok=True)
             (out_dir / "references.json").write_text("{}", encoding="utf-8")
@@ -292,6 +309,9 @@ def s2_phase(chunk: list, status: dict, arxiv_only: bool) -> tuple[dict, int]:
             print(f"[REFERENCES] LOI {pid}: {note}")
         else:
             refs = data.get("references") or []
+            # Preserve the complete response before projecting/deduplicating:
+            # even references without identifiers or titles remain auditable.
+            preserve_response(p, data, arxiv_only)
             fetched[pid] = (p, len(refs), candidate_refs(refs, arxiv_only))
     return fetched, transient
 
@@ -336,6 +356,8 @@ def finalize(fetched: dict, fut, status: dict, arxiv_cache: dict, label: str):
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--ids", help="comma-separated IDs for a targeted run")
+    ap.add_argument("--refresh", action="store_true", help="explicitly refresh selected completed records")
     ap.add_argument("--retry-no-record", action="store_true",
                     help="thu lai bai ma Semantic Scholar tung chua co ban ghi")
     ap.add_argument("--s2-dates", action="store_true",
@@ -350,6 +372,9 @@ def main() -> int:
     print(f"[REFERENCES] S2 key: {'CO' if S2_API_KEY else 'KHONG'}, "
           f"delay={S2_DELAY}s, batch={S2_BATCH}")
     papers = json.loads(DISCOVERY.read_text(encoding="utf-8"))["papers"]
+    if args.ids:
+        wanted = set(args.ids.split(","))
+        papers = [p for p in papers if p["id"] in wanted]
     if args.limit:
         papers = papers[:args.limit]
 
@@ -362,7 +387,7 @@ def main() -> int:
     todo, skipped = [], 0
     for p in papers:
         out_file = DATA_DIR / p["folder"] / "references.json"
-        if out_file.exists() and status.get(p["id"], {}).get("status") in done_states:
+        if not args.refresh and out_file.exists() and status.get(p["id"], {}).get("status") in done_states:
             skipped += 1
         else:
             todo.append(p)

@@ -1,0 +1,33 @@
+# Original corpus and large derived tables stay local.
+/data/
+/.submission/
+**/data/
+/_build/
+**/_build/
+/.venv/
+**/.venv/
+**/venv/
+/node_modules/
+**/node_modules/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.jupyter/
+.cache/
+*.log
+.env
+.env.*
+!.env.example
+/.aws/
+/.codex/
+/.agents/
+*.pem
+*.key
+*.download
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.parquet
+*.jsonl
+# m1_data/ and m2_data/ are deliberately tracked: small build inputs.

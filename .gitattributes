@@ -1,0 +1,10 @@
+# Preserve measured exports and audited pipeline bytes across Windows/Linux.
+# -text disables newline conversion, without disabling ordinary text diffs.
+m1_data/** -text whitespace=blank-at-eol,space-before-tab,cr-at-eol
+m2_data/** -text whitespace=blank-at-eol,space-before-tab,cr-at-eol
+src/*.py -text whitespace=blank-at-eol,space-before-tab,cr-at-eol
+# New report/configuration files use portable LF endings.
+*.md text eol=lf
+*.yml text eol=lf
+scripts/*.py text eol=lf
+audit_data/*.json text eol=lf

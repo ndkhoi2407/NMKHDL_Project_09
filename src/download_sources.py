@@ -15,8 +15,8 @@ Trang thai moi phien ban:
     other_format  docx/PostScript/khac         -> giu empty record (thu muc rong)
     error         loi tai/giai nen             -> se thu lai o lan chay sau
 
-Anh (png, jpg, pdf, eps...) duoc xoa ngay sau khi giai nen tung phien ban
-(xem process_sources.clean_version), nen dia khong bi day len.
+New archive extraction writes only .tex and .bib members, preserving their bytes.
+Legacy corpus files are not migrated or deleted by this code change.
 
 Tuy chon: dat bien moi truong ARXIV_CRAWLER_CONTACT (email) de dua vao
 User-Agent. Khong ghi email truc tiep trong code vi repo la public.
@@ -111,6 +111,8 @@ def safe_extract_tar(tar: tarfile.TarFile, dest: Path):
     """Giai nen an toan: bo qua symlink va duong dan thoat ra ngoai dest."""
     dest_resolved = dest.resolve()
     for member in tar.getmembers():
+        if not member.isfile() or Path(member.name).suffix.lower() not in {".tex", ".bib"}:
+            continue
         target = (dest / member.name).resolve()
         if dest_resolved not in target.parents and target != dest_resolved:
             continue
@@ -144,8 +146,16 @@ def extract_archive(raw: Path, dest: Path) -> str:
 
     if zipfile.is_zipfile(raw):          # zip co .tex, hoac docx (khong co .tex)
         with zipfile.ZipFile(raw) as z:
-            if any(n.lower().endswith(".tex") for n in z.namelist()):
-                z.extractall(dest)       # zipfile tu loai bo '..' va '/' dau
+            if any(Path(n).suffix.lower() in {".tex", ".bib"} for n in z.namelist()):
+                base = dest.resolve()
+                for member in z.infolist():
+                    target = (dest / member.filename).resolve()
+                    if (member.is_dir() or Path(member.filename).suffix.lower() not in {".tex", ".bib"}
+                            or base not in target.parents):
+                        continue
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    with z.open(member) as src, target.open("wb") as out:
+                        shutil.copyfileobj(src, out)
                 return "zip"
         return "other_format"
 
@@ -187,7 +197,16 @@ def process_version(paper_id: str, folder: str, ver: str) -> dict:
         return {"status": "error", "http": code, "url": url, "note": note}
 
     archive_bytes = raw.stat().st_size
+    # Measure member payload sizes without extracting unwanted files. This is
+    # logical uncompressed size, not observed temporary disk consumption.
+    member_bytes = None
     try:
+        if tarfile.is_tarfile(raw):
+            with tarfile.open(raw) as archive:
+                member_bytes = sum(member.size for member in archive.getmembers() if member.isfile())
+        elif zipfile.is_zipfile(raw):
+            with zipfile.ZipFile(raw) as archive:
+                member_bytes = sum(member.file_size for member in archive.infolist() if not member.is_dir())
         kind = extract_archive(raw, dest)
     except Exception as exc:
         shutil.rmtree(dest, ignore_errors=True)
@@ -197,9 +216,12 @@ def process_version(paper_id: str, folder: str, ver: str) -> dict:
         raw.unlink(missing_ok=True)
 
     result = {"http": 200, "url": url, "format": kind,
+              "source_policy": "tex-bib-only-v1",
               "dir": dest.as_posix(),
               "archive_bytes": archive_bytes,
-              "extracted_bytes_before_cleanup": dir_size(dest)}
+              "archive_member_payload_bytes": member_bytes,
+              "size_before_basis": "archive member logical bytes" if member_bytes is not None else "retained extracted bytes",
+              "extracted_bytes_before_cleanup": member_bytes if member_bytes is not None else dir_size(dest)}
     if kind in ("pdf_only", "other_format"):
         result["status"] = kind          # thu muc phien ban de rong (empty record)
     else:
@@ -217,6 +239,7 @@ def process_version(paper_id: str, folder: str, ver: str) -> dict:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=None, help="chi xu ly N bai dau")
+    ap.add_argument("--versions", help="comma-separated version IDs for a targeted retry")
     args = ap.parse_args()
 
     if not DISCOVERY.exists():
@@ -225,6 +248,7 @@ def main():
     if args.limit:
         papers = papers[:args.limit]
     status = load_json(STATUS_FILE, {})
+    wanted = set(args.versions.split(",")) if args.versions else None
     TMP_DIR.mkdir(parents=True, exist_ok=True)
 
     t0 = time.perf_counter()
@@ -232,6 +256,8 @@ def main():
     for p in papers:
         for ver in p["versions"]:
             key = f"{p['id']}{ver}"
+            if wanted is not None and key not in wanted:
+                continue
             if status.get(key, {}).get("status") in DONE_STATUSES:
                 print(f"[SOURCE] Bo qua {key} (da xong)")
                 continue

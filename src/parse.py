@@ -116,6 +116,7 @@ BIBLIO_RE = re.compile(r"\\(?:bibliography|addbibresource)(?![A-Za-z])\s*(?:\[[^
 
 def strip_comments(text: str) -> str:
     """Bo comment %... (dau % thoat bang \\% khong tinh) va moi truong comment."""
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
     text = COMMENT_RE.sub(r"\1", text)
     return re.sub(r"\\begin\{comment\}.*?\\end\{comment\}", "", text, flags=re.S)
 
@@ -986,6 +987,29 @@ def find_version_dir(pub_dir: Path, pid: str, folder: str, v: int, n_versions: i
     return None
 
 
+def merge_bib_entry(entries: dict, incoming: dict, conflicts: list):
+    """Union repeated identical keys, retaining conflicting originals for audit.
+
+    Later non-empty definitions win; a specific type takes priority over misc.
+    Missing fields never erase values from an earlier definition.
+    """
+    key = incoming["citation_key"]
+    if key not in entries:
+        entries[key] = dict(incoming)
+        return
+    current = entries[key]
+    for field, value in incoming.items():
+        if field == "citation_key" or not value:
+            continue
+        old = current.get(field)
+        if old and old != value:
+            conflicts.append({"citation_key": key, "field": field,
+                              "earlier": old, "later": value})
+        if field == "entry_type" and value == "misc" and old and old != "misc":
+            continue
+        current[field] = value
+
+
 def parse_version(vdir: Path) -> dict:
     """Gather + parse mot version. Tra ve dict: status, reason, tree, bib, thong ke."""
     tex = collect_files(vdir, ".tex")
@@ -1005,20 +1029,21 @@ def parse_version(vdir: Path) -> dict:
             k = resolve_name(name, posixpath.dirname(root), bibs, (".bib",))
             if k and k not in bib_keys:
                 bib_keys.append(k)
-    entries = {}
+    entries, bib_conflicts = {}, []
     for k in bib_keys:
         for e in parse_bib(read_text(bibs[k])):
-            entries.setdefault(e["citation_key"], e)
+            merge_bib_entry(entries, e, bib_conflicts)
 
     body, bibitems = extract_bibitems(body_of(full))
     for e in bibitems:
-        entries.setdefault(e["citation_key"], e)
+        merge_bib_entry(entries, e, bib_conflicts)
     tree = build_tree(parse_blocks(body))
     if not tree.children:
         return {"status": "failed", "reason": "no_content"}
     return {"status": "ok", "reason": "", "tree": tree, "bib": entries,
             "bib_files_all": {k: bibs[k] for k in bibs}, "root_file": root,
-            "files_used": len(used), "files_total": len(tex)}
+            "files_used": len(used), "files_total": len(tex),
+            "bib_field_conflicts": bib_conflicts}
 
 
 class ParseTimeout(Exception):
@@ -1056,7 +1081,8 @@ def process_publication(job: dict) -> dict:
         if r["status"] == "ok":
             parsed[v] = r
             vinfo[v].update(root_file=r["root_file"], files_used=r["files_used"],
-                            files_total=r["files_total"])
+                            files_total=r["files_total"],
+                            bib_field_conflicts=r["bib_field_conflicts"])
 
     # --- reference: khu trung xuyen version, doi ten \cite
     version_bibs = {}

@@ -1,273 +1,176 @@
-# NMKHDL GROUP 09 — Milestone 1: arXiv Crawling
+# HCMUS arXiv Project — Group 09
 
-## 1. Project Overview
+Milestones 1 and 2 of **Introduction to Data Science**, University of Science, VNU-HCM. The assigned range is **2607.03694–2607.08693**, comprising 5,000 base IDs. This is the cumulative source-code repository; the Jupyter Book is maintained separately.
 
-This project implements Milestone 1 of the HCMUS Introduction to Data Science project.
+- Source branch: [`24127121`](https://github.com/ndkhoi2407/NMKHDL_Project_09/tree/24127121)
+- Report repository: [TienThanh1234/arXiV-project](https://github.com/TienThanh1234/arXiV-project)
+- Intended report address: `https://tienthanh1234.github.io/arXiV-project/` — publication is pending verification; this is not yet a verified submission link.
+- Official specifications: [Milestone 1](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/), [Milestone 2](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/parsing/).
 
-The objective is to construct a local dataset of arXiv research papers within the assigned ID range. The pipeline discovers available papers, retrieves their metadata and source files, collects reference information, and records crawling status for subsequent analysis and processing.
+## Environment setup
 
-The collected corpus is also used as the input dataset for Milestone 2.
+The implementation and offline tests have been validated with **Python 3.14** on Windows. Use pip and a virtual environment; conda is not required. Colab uses its supplied Python interpreter and must be benchmarked separately.
 
-## 2. Main Objectives
+```powershell
+git clone --branch 24127121 --single-branch https://github.com/ndkhoi2407/NMKHDL_Project_09.git
+cd NMKHDL_Project_09
+python -m venv .venv
+$env:PATH = "$PWD\.venv\Scripts;$env:PATH"
+python -m pip install -r src/requirements.txt
+python -m pip check
+```
 
-The Milestone 1 pipeline performs the following tasks:
+Dependencies are `arxiv`, `requests` and `psutil`, pinned in `src/requirements.txt`. Parsing and report-data export otherwise use the Python standard library. If `ensurepip` fails while creating the environment, the system pip can populate it with `python -m pip --python .venv/Scripts/python.exe install -r src/requirements.txt` before setting PATH.
 
-- Discover arXiv papers within the assigned ID range.
-- Identify available papers and their metadata.
-- Retrieve source files for available papers and versions.
-- Preserve downloaded LaTeX source files and their directory structure.
-- Process and organize the downloaded source data.
-- Retrieve reference information using Semantic Scholar where available.
-- Record crawling status, errors, and checkpoints.
-- Generate statistics and benchmark information for evaluating the collected dataset.
+Reference crawling can use a real Semantic Scholar key, supplied privately through the environment. Do not paste credentials into code or commit them:
 
-## 3. Project Structure
+```powershell
+$secureKey = Read-Host "Semantic Scholar API key" -AsSecureString
+$env:S2_API_KEY = [System.Net.NetworkCredential]::new('', $secureKey).Password
+```
+
+Optionally set `ARXIV_CRAWLER_CONTACT` to an ASCII contact address for the User-Agent. No API key or network is needed for the offline tests.
+
+## Project structure
 
 ```text
-NMKHDL_Project_09/
-├── data/                       # Local working data; not committed to Git
-│   ├── 2607-03694/
-│   │   ├── ...
-│   │   └── ...
-│   ├── tables/
-│   │   ├── elements.jsonl
-│   │   ├── hierarchy.jsonl
-│   │   └── bibtex.jsonl
-│   ├── discovery.json
-│   ├── download_status.json
-│   ├── metadata_status.json
-│   ├── references_status.json
-│   ├── parse_status.json
-│   ├── benchmark/
-│   └── benchmark_parse/
-│
-├── src/                        # Python source code
-│   ├── benchmark.py
-│   ├── benchmark_parse.py
-│   ├── discover.py
-│   ├── download_sources.py
-│   ├── main.py
-│   ├── make_report_data.py
-│   ├── metadata.py
-│   ├── parse.py
-│   ├── process_sources.py
-│   └── references.py
-│
-├── tests/                      # Test files
-├── README.md
-├── MILESTONE1.md
-├── MILESTONE2.md
-└── .gitignore
+src/
+  discover.py             # assigned IDs and version lists
+  download_sources.py     # versioned /src/ downloads, .tex/.bib-only extraction
+  process_sources.py      # legacy image cleanup; not a corpus migration tool
+  metadata.py             # publication and identifier-verified version metadata
+  references.py           # Semantic Scholar responses, projections and provenance
+  main.py                 # resumable M1 driver with per-step timings
+  parse.py                # hierarchy, normalization, bibliography and deduplication
+  benchmark.py            # M1 process-tree monitoring and corpus statistics
+  benchmark_parse.py      # M2 monitoring and statistics
+  make_report_data.py     # small report exports from existing results
+  requirements.txt
+scripts/
+  check_parser_logic.py
+  check_pipeline.py
+  check_colab_workflow.py
+  colab_benchmark.py
+notebooks/colab_cpu_benchmarks.ipynb
+BENCHMARKS.md
+data/                     # generated locally; excluded from Git
 ```
 
-The `data/` directory stores the downloaded arXiv corpus, crawling status files, benchmark results, and structured parsing outputs.
+## Safe offline validation
 
-The `data/tables/` directory contains the structured JSONL datasets generated during the parsing stage:
-
-- `elements.jsonl`: Extracted paper elements.
-- `hierarchy.jsonl`: Structural relationships between paper elements.
-- `bibtex.jsonl`: Extracted bibliography information.
-
-The `src/` directory contains the Python modules responsible for paper discovery, source downloading, source processing, metadata retrieval, reference retrieval, parsing, benchmarking, and report data generation.
-
-## 4. Requirements
-
-- Python 3.11 or later
-- Internet connection for crawling and metadata/reference retrieval
-- Semantic Scholar API key for reference retrieval, where required
-
-Install the required Python packages from the repository root:
+These commands exercise small fixtures, mocked APIs and benchmark orchestration. They do not crawl or parse the 5,000-publication corpus:
 
 ```powershell
-py -3.11 -m pip install -r .\src\requirements.txt
+python scripts/check_parser_logic.py
+python scripts/check_pipeline.py
+python scripts/check_colab_workflow.py
 ```
 
-## 5. Configuration
+The checks cover source-only tar/ZIP extraction and unchanged TeX bytes, path filtering, CR-only line endings, duplicate-key field unionization, citation remapping, exact-text reuse, metadata provenance and complete reference-response retention. Passing fixtures does not establish universal corpus accuracy.
 
-The reference retrieval stage may use the Semantic Scholar API.
+## Milestone 1 — crawling
 
-If an API key is required, configure it as an environment variable in PowerShell:
+The driver resolves the assigned IDs through the arXiv API, downloads each version from the versioned source endpoint, processes sources, writes metadata and fetches references. It records `data/timings.json` and resumes completed work. The metadata step enables `--versioned` so historical titles/authors are fetched through actual versioned API identifiers rather than copied from the latest snapshot.
+
+New tar/ZIP extraction writes only `.tex` and `.bib`, preserving their bytes and LaTeX figure commands. This correction does not migrate any old corpus. Source member payload sizes are logical uncompressed bytes, distinct from measured temporary disk consumption. PDF-only/unconvertible versions remain explicit empty records.
+
+### Small trial
+
+Use a separate work directory and a genuinely small discovery range. `--limit` alone does not reduce the discovery range:
 
 ```powershell
-$env:S2_API_KEY="YOUR_API_KEY"
+python src/main.py --prefix 2607 --start 3694 --end 3696 --limit 3 --workdir .cache/trial-m1
 ```
 
-The API key should be stored in the environment rather than committed to the repository.
-
-Do not commit API keys, credentials, or downloaded corpus data to Git.
-
-## 6. Running the Pipeline
-
-The assigned arXiv ID range is:
-
-```text
-Prefix: 2607
-Start:  03694
-End:    08693
-Total:  5,000 base IDs
-```
-
-Start with a small trial before processing the full range.
-
-### Small Trial
-
-Run the following commands sequentially:
+This is a networked three-ID trial. Only run it when ready to make requests. To parse that trial input, keep its data directory as the working directory:
 
 ```powershell
-py -3.11 .\src\crawler.py --max-papers 3 --phase discover --discovery-backend oai --output .\data
-
-py -3.11 .\src\crawler.py --max-papers 3 --phase sources --output .\data
-
-py -3.11 .\src\crawler.py --max-papers 3 --phase references --output .\data
-
-py -3.11 .\src\status.py --max-papers 3 --output .\data
-
-py -3.11 .\src\audit.py --max-papers 3 --output .\data
+$projectRoot = (Get-Location).Path
+Push-Location .cache/trial-m1
+python "$projectRoot/src/parse.py" --limit 3 --workers 1 --export
+Pop-Location
 ```
 
-### Full Crawling Pipeline
+### Full execution — explicit opt-in
 
-For the complete assigned range, run the following stages sequentially, omitting `--max-papers`:
+The following commands start a complete run; they are documented for reproducibility and were not run while preparing this submission. Use a new working directory to keep historical data intact:
 
 ```powershell
-py -3.11 .\src\crawler.py --phase discover --discovery-backend oai --output .\data
-
-py -3.11 .\src\crawler.py --phase metadata --output .\data
-
-py -3.11 .\src\crawler.py --phase sources --output .\data
-
-py -3.11 .\src\crawler.py --phase references --output .\data
-
-py -3.11 .\src\crawler.py --phase enrich-refs --enrich-backend oai --output .\data
+python src/main.py --prefix 2607 --start 3694 --end 8693 --workdir .cache/full-m1
 ```
 
-The crawler saves checkpoints and can resume after interruption. Crawling should respect arXiv and Semantic Scholar rate limits.
+Individual stages can be run from a working directory containing `data/discovery.json`. Supported targeted selectors include:
 
-A complete run may take several hours depending on network conditions and API response times.
+```powershell
+# Set $projectRoot to the cloned repository before entering an isolated working copy containing data/.
+# $projectRoot = (Get-Location).Path
+python "$projectRoot/src/download_sources.py" --versions 2607.04159v2
+python "$projectRoot/src/metadata.py" --ids 2607.03694 --versioned --refresh
+python "$projectRoot/src/references.py" --ids 2607.03694 --refresh
+```
 
-## 7. Output Data
+`--refresh` replaces selected generated records in that working copy. Completed legacy reference files are otherwise skipped; current defaults cannot recover references absent from an older run. Raw Semantic Scholar responses preserve even unidentifiable references. The reference provenance explicitly describes a shared publication-level response, not an independently measured bibliography for every version.
 
-The collected dataset contains the available source files and associated information for each paper.
+## Milestone 2 — hierarchical parsing and standardization
 
-Example:
+Run the parser from the directory containing the intended `data/` input:
+
+```powershell
+$projectRoot = (Get-Location).Path
+Push-Location .cache/full-m1
+python "$projectRoot/src/parse.py" --workers 2 --export
+Pop-Location
+```
+
+The parser follows the selected compilation root and transitive includes, ignores commented includes, constructs headings, sentence/formula/figure leaves and nested lists, excludes references from the hierarchy, cleans formatting and normalizes math. Bibliographies are extracted from included `.bib` files and `\bibitem` definitions. Duplicate identical keys merge non-empty fields; conflicts remain in version diagnostics. Cross-version unionization remaps citation keys before exact `(kind, cleaned content)` deduplication. Repeated occurrences within one version retain distinct IDs.
+
+For selected publications use `--ids 2607.03694,2607.03695`; `--limit 3` limits the first three discovered publications. `--force` explicitly replaces selected existing parse outputs. `--export-only` merges existing results without reparsing. The per-publication timeout uses `SIGALRM` and is not enforced by that mechanism on Windows. Plain TeX without a LaTeX root remains unsupported; author macro expansion and bibliography extraction are heuristic.
+
+## Generated outputs
 
 ```text
 data/
-└── 2607-03694/
-    ├── v1/
-    │   ├── main.tex
-    │   ├── references.bib
-    │   └── ...
-    ├── metadata.json
-    ├── parsed.json
-    └── references.json
+  discovery.json, download_status.json, metadata_status.json
+  references_status.json, parse_status.json, timings.json
+  2607-03694/
+    v1/, v2/, ...                 # .tex/.bib sources where available
+    metadata.json                 # publication snapshot and dated version map
+    metadata_versions.json        # actual versioned API snapshots with provenance
+    references.json               # identifiable-reference projection
+    references_raw.json           # complete fetched response
+    references_provenance.json     # explicit publication scope and version pointers
+    parsed.json                   # all versions, elements, hierarchy and bibliography
+  tables/{elements,hierarchy,bibtex}.jsonl
+  benchmark/{summary.json,papers.csv,samples.csv}
+  benchmark_parse/{summary.json,papers.csv,samples.csv}
 ```
 
-The actual number of versions and files varies between papers.
+## Benchmarks and reproducibility
 
-The downloaded source files are preserved for subsequent processing and parsing in Milestone 2.
+The final course testbed is **Google Colab CPU-only**. [BENCHMARKS.md](BENCHMARKS.md), the executable notebook and `scripts/colab_benchmark.py` define the workflow. The runner defaults to a plan and refuses full execution outside Colab or into an existing output directory:
 
-## 8. Status and Log Files
-
-The pipeline records its progress and results in JSON files:
-
-| File | Description |
-|---|---|
-| `discovery.json` | Records discovered papers and discovery information. |
-| `download_status.json` | Records source download status. |
-| `metadata_status.json` | Records metadata retrieval status. |
-| `references_status.json` | Records reference retrieval status. |
-| `parse_status.json` | Records parsing status for Milestone 2. |
-| `timings.json` | Stores timing information from pipeline operations. |
-
-These files allow incomplete operations and failed records to be identified without restarting the entire crawling process.
-
-## 9. Benchmark
-
-The project includes benchmark outputs for evaluating crawling and parsing performance.
-
-The benchmark information can include:
-
-- Total execution time.
-- Average processing time per paper.
-- Step-by-step execution time.
-- Peak and average memory usage.
-- Number of papers and versions processed.
-- Download and processing results.
-- Output data size.
-
-Benchmark outputs are stored in:
-
-```text
-data/
-├── benchmark/
-│   ├── summary.json
-│   ├── papers.csv
-│   └── samples.csv
-│
-└── benchmark_parse/
-    ├── summary.json
-    ├── papers.csv
-    └── samples.csv
+```powershell
+python scripts/colab_benchmark.py --stage both --workdir /content/arxiv-new-run --single-trial --workers 2
 ```
 
-The benchmark results are used to evaluate the performance of the crawling and parsing stages.
+On Colab, explicit `--execute` starts the full run. Retain environment/source hashes, commands, logs, summaries, RAM samples, corpus-disk samples and failures. Merged-table export is timed separately. For an already prepared working directory, supported benchmark entry points are:
 
-## 10. Current Dataset Statistics
-
-The assigned dataset covers the following range:
-
-| Metric | Result |
-|---|---:|
-| ID prefix | `2607` |
-| Starting ID | `03694` |
-| Ending ID | `08693` |
-| IDs in assigned range | 5,000 |
-| Sample paper directory | `2607-03694` |
-
-The actual number of discovered papers, downloaded versions, successful operations, and other performance metrics should be taken from the generated benchmark and status files.
-
-## 11. Source Data and Storage
-
-The downloaded source corpus is stored locally under the `data/` directory.
-
-The corpus contains the available versions of each paper and associated metadata and reference information.
-
-The collected source data is used as the input for Milestone 2, where the local corpus is parsed and transformed into structured outputs.
-
-The full dataset is not committed to Git because of its large storage requirements.
-
-## 12. Reproducibility
-
-To reproduce Milestone 1:
-
-1. Clone the project repository.
-2. Install Python 3.11 or later.
-3. Install dependencies from `src/requirements.txt`.
-4. Configure the Semantic Scholar API key if required.
-5. Run the discovery stage for the assigned ID range.
-6. Retrieve metadata and source files.
-7. Retrieve reference information.
-8. Inspect crawling status and audit results.
-9. Generate or inspect benchmark statistics.
-
-The status and checkpoint files help identify successful, failed, and incomplete operations.
-
-## 13. Notes
-
-The assigned arXiv ID range for this project is:
-
-```text
-2607.03694 – 2607.08693
+```powershell
+python "$projectRoot/src/benchmark.py" --prefix 2607 --start 3694 --end 8693 --single-trial
+python "$projectRoot/src/benchmark_parse.py" --workers 2
+# Statistics from existing results only:
+python "$projectRoot/src/benchmark.py" --report-only
+python "$projectRoot/src/benchmark_parse.py" --report-only
 ```
 
-This range contains 5,000 base IDs.
+`$projectRoot` is the repository path captured before entering the isolated working directory, as in the M2 example. Use a fresh isolated corpus/output state for valid full-run measurements. `benchmark_parse.py --fresh` deletes existing parser outputs; it is deliberately not required by the fresh-directory runner. A resumed run, a report-only summary and a fresh end-to-end measurement are different experiments.
 
-Milestone 1 constructs the local arXiv corpus, which serves as the input dataset for Milestone 2.
+The report's historical M1 timing is a resumed Windows run with discovery skipped; peak/average RAM, original discovery time and peak disk were not measured. Historical M2 measurements are Windows-only. No real Colab results have been collected. Source-only migration, legacy metadata/reference recovery, version/date reconciliation, residual 404 downloads and Plain TeX support remain open corpus requirements.
 
-Milestone 2 performs offline parsing of the collected corpus and generates structured data for further analysis.
+To export statistics from existing local results into a new report-data destination:
 
-For additional methodology, implementation details, outputs, and limitations, see:
+```powershell
+python src/make_report_data.py --m1-out .cache/report-export/m1_data --m2-out .cache/report-export/m2_data
+```
 
-- [MILESTONE1.md](https://github.com/ndkhoi2407/NMKHDL_Project_09/blob/24127121/MILESTONE1.md)
-- [MILESTONE2.md](https://github.com/ndkhoi2407/NMKHDL_Project_09/blob/24127121/MILESTONE2.md)
+This scans existing results; it does not run a crawler or parser. Preserve historical exports and publish new measured runs under distinct provenance labels. The full corpus, generated tables, environments, caches, archives and credentials stay local and must not be force-added to Git.
