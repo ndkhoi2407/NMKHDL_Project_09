@@ -27,38 +27,48 @@ The Milestone 1 pipeline performs the following tasks:
 NMKHDL_Project_09/
 ├── data/                       # Local working data; not committed to Git
 │   ├── 2607-03694/
-│   │   ├── v1/
-│   │   ├── v2/
 │   │   ├── ...
-│   │   ├── metadata.json
-│   │   ├── parsed.json
-│   │   └── references.json
+│   │   └── ...
+│   ├── tables/
+│   │   ├── elements.jsonl
+│   │   ├── hierarchy.jsonl
+│   │   └── bibtex.jsonl
 │   ├── discovery.json
 │   ├── download_status.json
 │   ├── metadata_status.json
 │   ├── references_status.json
 │   ├── parse_status.json
-│   ├── timings.json
 │   ├── benchmark/
-│   ├── benchmark_parse/
-│   └── milestone2/
+│   └── benchmark_parse/
 │
-├── src/                        # Source code
-│   ├── crawler.py
-│   ├── status.py
-│   ├── audit.py
-│   ├── milestone2/
-│   │   └── cli.py
-│   └── requirements.txt
+├── src/                        # Python source code
+│   ├── benchmark.py
+│   ├── benchmark_parse.py
+│   ├── discover.py
+│   ├── download_sources.py
+│   ├── main.py
+│   ├── make_report_data.py
+│   ├── metadata.py
+│   ├── parse.py
+│   ├── process_sources.py
+│   └── references.py
 │
-├── tests/                      # Offline test suite
+├── tests/                      # Test files
+├── README.md
 ├── MILESTONE1.md
 ├── MILESTONE2.md
-├── README.md
 └── .gitignore
 ```
 
-The exact contents of the data directory depend on the crawling and parsing stages that have been completed.
+The `data/` directory stores the downloaded arXiv corpus, crawling status files, benchmark results, and structured parsing outputs.
+
+The `data/tables/` directory contains the structured JSONL datasets generated during the parsing stage:
+
+- `elements.jsonl`: Extracted paper elements.
+- `hierarchy.jsonl`: Structural relationships between paper elements.
+- `bibtex.jsonl`: Extracted bibliography information.
+
+The `src/` directory contains the Python modules responsible for paper discovery, source downloading, source processing, metadata retrieval, reference retrieval, parsing, benchmarking, and report data generation.
 
 ## 4. Requirements
 
