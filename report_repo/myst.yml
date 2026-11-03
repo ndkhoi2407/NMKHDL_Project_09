@@ -1,0 +1,15 @@
+version: 1
+project:
+  title: arXiv Corpus — Project Report
+  description: Milestone 1 crawling and Milestone 2 parsing results for HCMUS Group 09.
+  github: https://github.com/thieuquang18/NMKHDL_report
+  toc:
+    - file: index.md
+    - file: milestone1.ipynb
+      title: Milestone 1 — Crawling
+    - file: milestone2.ipynb
+      title: Milestone 2 — Parsing
+site:
+  template: book-theme
+  options:
+    logo_text: Made with MyST
