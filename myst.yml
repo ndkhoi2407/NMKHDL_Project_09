@@ -21,7 +21,7 @@ project:
 
   toc:
     - file: index.md
-    - title: Thiếu Quang — Milestones 1–2
+    - title: Thiều Quang — Milestones 1–2
       children:
         - file: thieu_quang/index.md
         - file: thieu_quang/milestone1.ipynb

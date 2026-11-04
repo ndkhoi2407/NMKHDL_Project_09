@@ -15,10 +15,10 @@ original chapters and results in separate sections.
 |---|---|
 | 24127061 | Ngô Trần Anh Khoa |
 | 24127065 | Nguyễn Đăng Khôi |
-| 24127114 | Thiếu Quang |
+| 24127114 | Thiều Quang |
 | 24127121 | Nguyễn Tiến Thành |
 
 ## Reports
 
-- [Thiếu Quang — Milestones 1–2](thieu_quang/index)
+- [Thiều Quang — Milestones 1–2](thieu_quang/index)
 - [Nguyễn Tiến Thành — arXiv Corpus](nguyen_tien_thanh/index)

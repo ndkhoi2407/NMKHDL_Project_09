@@ -14,7 +14,7 @@ content and supporting aggregate data preserved.
 |---|---|
 | 24127061 | Ngô Trần Anh Khoa |
 | 24127065 | Nguyễn Đăng Khôi |
-| 24127114 | Thiếu Quang |
+| 24127114 | Thiều Quang |
 | 24127121 | Nguyễn Tiến Thành |
 
 ## Build locally
