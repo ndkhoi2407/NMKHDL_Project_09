@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-10-25T08:49:20+00:00",
+  "assigned_count_this_run": 5000,
+  "assigned_start": "2607.13694",
+  "assigned_end": "2607.18693",
+  "metrics": {
+    "cached": 5000,
+    "processed": 5000,
+    "fresh_parsed": 0,
+    "versions_expected": 6417,
+    "versions_parsed": 6105,
+    "versions_empty": 312,
+    "versions_no_root": 0,
+    "content_before_dedup": 2834259,
+    "content_after_dedup": 2280571,
+    "references_before_dedup": 483550,
+    "references_after_dedup": 383892,
+    "hierarchy_edges": 2811459
+  },
+  "wall_seconds": 22.365,
+  "avg_seconds_per_publication": 0.0045,
+  "peak_ram_bytes": 44457984,
+  "average_ram_bytes": 43081785,
+  "ram_samples": 72,
+  "metric_origin": "milestone1.MemorySampler",
+  "output_disk_bytes": 2134747357,
+  "table_exported": true,
+  "benchmark_caveat": "This invocation reuses per-paper checkpoints; timings must not be mistaken for a cold parsing benchmark.",
+  "note": "Subset runs describe only the selected IDs, not the full 5000-paper corpus."
+}

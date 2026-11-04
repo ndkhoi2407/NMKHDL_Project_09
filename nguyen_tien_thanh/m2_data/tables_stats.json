@@ -1,0 +1,17 @@
+{
+  "elements": {
+    "rows": 2408228,
+    "bytes": 613953335,
+    "path": "data\\tables\\elements.jsonl"
+  },
+  "hierarchy": {
+    "rows": 2958347,
+    "bytes": 320600101,
+    "path": "data\\tables\\hierarchy.jsonl"
+  },
+  "bibtex": {
+    "rows": 510849,
+    "bytes": 155634356,
+    "path": "data\\tables\\bibtex.jsonl"
+  }
+}

@@ -1,0 +1,40 @@
+version: 1
+
+project:
+  title: NMKHDL_Project_09 — Group 9
+  subtitle: Introduction to Data Science · HCMUS
+  description: Combined Jupyter Book reports for Group 9.
+  github: https://github.com/ndkhoi2407/NMKHDL_Project_09
+
+  exclude:
+    - .venv/**
+    - node_modules/**
+    - _build/**
+    - thieu_quang/report_data/**
+    - nguyen_tien_thanh/m1_data/**
+    - nguyen_tien_thanh/m2_data/**
+    - nguyen_tien_thanh/audit_data/**
+    - nguyen_tien_thanh/notebooks/**
+    - nguyen_tien_thanh/src/**
+    - nguyen_tien_thanh/scripts/**
+    - README.md
+
+  toc:
+    - file: index.md
+    - title: Thiếu Quang — Milestones 1–2
+      children:
+        - file: thieu_quang/index.md
+        - file: thieu_quang/milestone1.ipynb
+        - file: thieu_quang/milestone2.ipynb
+    - title: Nguyễn Tiến Thành — arXiv Corpus
+      children:
+        - file: nguyen_tien_thanh/index.md
+        - file: nguyen_tien_thanh/m1_crawling.md
+        - file: nguyen_tien_thanh/m2_parsing.md
+        - file: nguyen_tien_thanh/crawling_stats.md
+        - file: nguyen_tien_thanh/colab_benchmarks.md
+
+site:
+  template: book-theme
+  options:
+    logo_text: Group 9

@@ -1,0 +1,486 @@
+{
+  "arxiv_id": "2607.07687",
+  "elements": [
+    {
+      "element_id": "2607-07687#root1",
+      "arxiv_id": "2607.07687",
+      "kind": "document",
+      "content": "Version 1 root"
+    },
+    {
+      "element_id": "2607-07687#h1",
+      "arxiv_id": "2607.07687",
+      "kind": "heading",
+      "content": "INTRODUCTION"
+    },
+    {
+      "element_id": "2607-07687#s1",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "High-performance computing (HPC) is a cornerstone of computational fluid dynamics, enabling an ever-growing resolution i"
+    },
+    {
+      "element_id": "2607-07687#s2",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "Driven by hardware advances such as general-purpose processor (CPU) and accelerator-based (GPU) nodes, CFD software is r"
+    },
+    {
+      "element_id": "2607-07687#s3",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "The trend comes at an added software-complexity cost, and CFD developers now heavily rely on HPC libraries to offload co"
+    },
+    {
+      "element_id": "2607-07687#s4",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "In this direction, we present performance-oriented developments and the first parallel scalability results of WaterLily."
+    },
+    {
+      "element_id": "2607-07687#s5",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "Written in pure Julia, WaterLily is designed to be a compact and minimalist finite-volume incompressible-flow solver tha"
+    },
+    {
+      "element_id": "2607-07687#s6",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "This feature is enabled by separating computing workloads (typically for loops) from the algorithmic space-time discreti"
+    },
+    {
+      "element_id": "2607-07687#s7",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "By using Julia's metaprogramming support, the solver ultimately specialises each kernel to the available computing backe"
+    },
+    {
+      "element_id": "2607-07687#h2",
+      "arxiv_id": "2607.07687",
+      "kind": "heading",
+      "content": "MPI PARALLELISATION AND SCALING"
+    },
+    {
+      "element_id": "2607-07687#s8",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "Further leveraging Julia's scientific computing ecosystem, distributed-memory parallelism has been recently integrated i"
+    },
+    {
+      "element_id": "2607-07687#s9",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "Backed by the MPI.jl wrapper, IGG uses a Cartesian MPI communicator naturally mapping to regular grids, and offering CUD"
+    },
+    {
+      "element_id": "2607-07687#s10",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "Additionally, IGG works with different grid sizes, thus enabling halo updates within geometric-multigrid (GMG) levels wi"
+    },
+    {
+      "element_id": "2607-07687#f1",
+      "arxiv_id": "2607.07687",
+      "kind": "figure",
+      "content": "\\begin{figure}\n\\includegraphics[width=7.93cm]{./img/strong_scaling.pdf}\n\\includegraphics[width=7.93cm]{./img/weak_scalin"
+    },
+    {
+      "element_id": "2607-07687#s11",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "Strong and weak scalability results are presented in Figure \\ref{fig:scalability}."
+    },
+    {
+      "element_id": "2607-07687#s12",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "The tests are conducted with the SIMD single-thread CPU backend with single precision (FP32) and half-node occupancy (64"
+    },
+    {
+      "element_id": "2607-07687#s13",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "The test cases comprise a Taylor--Green vortex (TGV) at $Re=1600$ in a triple-periodic cubic domain, and flow past a sph"
+    },
+    {
+      "element_id": "2607-07687#s14",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "The MPI domain decomposition always minimizes the halo surface for a given number of processes."
+    },
+    {
+      "element_id": "2607-07687#s15",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "The strong-scalability results closely follow the ideal linear reduction in time per time-step, even super-linearly for "
+    },
+    {
+      "element_id": "2607-07687#s16",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "The trend deteriorates when MPI halo updates dominate the local workload, once the smallest local subdomain dimension ap"
+    },
+    {
+      "element_id": "2607-07687#s17",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "The weak-scalability results maintain an efficiency $(E)$ above 90\\% for the small ($64^3$ cells) and large ($128^3$ cel"
+    },
+    {
+      "element_id": "2607-07687#s18",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "Beyond, efficiency drops due to intra-node memory-concurrency contention, motivating the 50\\% node occupancy."
+    },
+    {
+      "element_id": "2607-07687#s19",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "This reflects the memory-bound nature of the solver's stencil kernels \\cite{Williams2009}."
+    },
+    {
+      "element_id": "2607-07687#s20",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "While memory bandwidth is not saturated (checked with hardware counters), ranks compete to access the per-chiplet link t"
+    },
+    {
+      "element_id": "2607-07687#s21",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "Ranks are hence pinned with a uniform stride across the node."
+    },
+    {
+      "element_id": "2607-07687#s22",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "Beyond the node, weak scaling is nearly ideal, remaining above 96\\% up to 512 ranks and $10^9$ cells (Figure \\ref{fig:sc"
+    },
+    {
+      "element_id": "2607-07687#h3",
+      "arxiv_id": "2607.07687",
+      "kind": "heading",
+      "content": "ANISOTROPIC GEOMETRIC MULTIGRID SOLVER WITH ADAPTIVE UNDER-RELAXED RED-BLACK GAUSS--SEIDEL SMOOTHER"
+    },
+    {
+      "element_id": "2607-07687#s23",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "WaterLily's general-purpose Poisson solver is Preconditioned Conjugate Gradient (PCG), which applies to arbitrary grid s"
+    },
+    {
+      "element_id": "2607-07687#s24",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "However, its global inner products require costly reductions in MPI simulations, and the number of iterations increases "
+    },
+    {
+      "element_id": "2607-07687#s25",
+      "arxiv_id": "2607.07687",
+      "kind": "sentence",
+      "content": "For this reason, the default WaterLily solver uses GMG, which accelerates convergence by combining smoothers to remove h"
+    }
+  ],
+  "hierarchy": [
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#h1",
+      "parent_id": "2607-07687#root1"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s1",
+      "parent_id": "2607-07687#h1"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s2",
+      "parent_id": "2607-07687#h1"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s3",
+      "parent_id": "2607-07687#h1"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s4",
+      "parent_id": "2607-07687#h1"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s5",
+      "parent_id": "2607-07687#h1"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s6",
+      "parent_id": "2607-07687#h1"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s7",
+      "parent_id": "2607-07687#h1"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#h2",
+      "parent_id": "2607-07687#root1"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s8",
+      "parent_id": "2607-07687#h2"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s9",
+      "parent_id": "2607-07687#h2"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s10",
+      "parent_id": "2607-07687#h2"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#f1",
+      "parent_id": "2607-07687#h2"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s11",
+      "parent_id": "2607-07687#h2"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s12",
+      "parent_id": "2607-07687#h2"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s13",
+      "parent_id": "2607-07687#h2"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s14",
+      "parent_id": "2607-07687#h2"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s15",
+      "parent_id": "2607-07687#h2"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s16",
+      "parent_id": "2607-07687#h2"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s17",
+      "parent_id": "2607-07687#h2"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s18",
+      "parent_id": "2607-07687#h2"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s19",
+      "parent_id": "2607-07687#h2"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s20",
+      "parent_id": "2607-07687#h2"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s21",
+      "parent_id": "2607-07687#h2"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s22",
+      "parent_id": "2607-07687#h2"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#h3",
+      "parent_id": "2607-07687#root1"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s23",
+      "parent_id": "2607-07687#h3"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s24",
+      "parent_id": "2607-07687#h3"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 1,
+      "element_id": "2607-07687#s25",
+      "parent_id": "2607-07687#h3"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 2,
+      "element_id": "2607-07687#h1",
+      "parent_id": "2607-07687#root2"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 2,
+      "element_id": "2607-07687#s1",
+      "parent_id": "2607-07687#h1"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 2,
+      "element_id": "2607-07687#s2",
+      "parent_id": "2607-07687#h1"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 2,
+      "element_id": "2607-07687#s3",
+      "parent_id": "2607-07687#h1"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 2,
+      "element_id": "2607-07687#s4",
+      "parent_id": "2607-07687#h1"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 2,
+      "element_id": "2607-07687#s5",
+      "parent_id": "2607-07687#h1"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 2,
+      "element_id": "2607-07687#s6",
+      "parent_id": "2607-07687#h1"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 2,
+      "element_id": "2607-07687#s7",
+      "parent_id": "2607-07687#h1"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 2,
+      "element_id": "2607-07687#h2",
+      "parent_id": "2607-07687#root2"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 2,
+      "element_id": "2607-07687#s8",
+      "parent_id": "2607-07687#h2"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "version": 2,
+      "element_id": "2607-07687#s9",
+      "parent_id": "2607-07687#h2"
+    }
+  ],
+  "bibtex": [
+    {
+      "arxiv_id": "2607.07687",
+      "citation_key": "WeymouthFont2025",
+      "entry_type": "article",
+      "title": "WaterLily.jl: A differentiable and backend-agnostic Julia solver for incompressible viscous flow around dynamic bodies",
+      "authors": [
+        "Weymouth, G.D.",
+        "Font, B."
+      ],
+      "year": 2025,
+      "doi": "10.1016/j.cpc.2025.109748",
+      "journal": "Computer Physics Communications",
+      "url": null
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "citation_key": "Churavy_KernelAbstractions_jl",
+      "entry_type": "misc",
+      "title": "KernelAbstractions.jl",
+      "authors": [
+        "Churavy, V."
+      ],
+      "year": null,
+      "doi": "10.5281/zenodo.4021259",
+      "journal": null,
+      "url": null
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "citation_key": "Omlin2024",
+      "entry_type": "article",
+      "title": "Distributed Parallelization of xPU Stencil Computations in Julia",
+      "authors": [
+        "Omlin, S.",
+        "R\\\"ass, L.",
+        "Utkin, I."
+      ],
+      "year": 2024,
+      "doi": "10.21105/jcon.00137",
+      "journal": "JuliaCon Proceedings",
+      "url": "https://dx.doi.org/10.21105/jcon.00137"
+    },
+    {
+      "arxiv_id": "2607.07687",
+      "citation_key": "Williams2009",
+      "entry_type": "article",
+      "title": "Roofline: an insightful visual performance model for multicore architectures",
+      "authors": [
+        "Williams, S.",
+        "Waterman, A.",
+        "Patterson, D."
+      ],
+      "year": 2009,
+      "doi": null,
+      "journal": "Communications of the ACM",
+      "url": null
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "reasons": [
+    {
+      "status": "empty",
+      "reason": "download:pdf_only",
+      "count": 313
+    },
+    {
+      "status": "empty",
+      "reason": "no_source_dir",
+      "count": 17
+    },
+    {
+      "status": "failed",
+      "reason": "no_root_file",
+      "count": 2
+    },
+    {
+      "status": "empty",
+      "reason": "download:no_tex",
+      "count": 1
+    }
+  ],
+  "failed_versions": [
+    {
+      "arxiv_id": "2607.05431",
+      "version": 1,
+      "reason": "no_root_file"
+    },
+    {
+      "arxiv_id": "2607.07654",
+      "version": 1,
+      "reason": "no_root_file"
+    }
+  ]
+}

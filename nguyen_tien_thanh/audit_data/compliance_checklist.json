@@ -1,0 +1,74 @@
+[
+  {
+    "Requirement": "M1 source-only extraction and figure commands",
+    "Status": "PARTIAL",
+    "Evidence": "src/download_sources.py; scripts/check_pipeline.py",
+    "Remaining action": "New tar/ZIP extraction passes byte-preservation tests. Existing version folders still contain 17,661 extra files; migrate only into a separate approved working copy."
+  },
+  {
+    "Requirement": "M1 discovery and every-version coverage",
+    "Status": "PARTIAL",
+    "Evidence": "audit_data/corpus_audit.json; audit_data/download_probe.json",
+    "Remaining action": "17 historical download errors remain. Live HEAD checks saw four 404s then two 429s; remaining URLs were not probed. Reconcile 14 metadata/discovery date-count mismatches."
+  },
+  {
+    "Requirement": "Venue and per-version metadata",
+    "Status": "PARTIAL",
+    "Evidence": "src/discover.py; src/metadata.py; src/main.py; scripts/check_pipeline.py",
+    "Remaining action": "New code preserves venue when available and fetches identifier-verified per-version metadata with --versioned (enabled in main). Historical metadata has not been refreshed."
+  },
+  {
+    "Requirement": "All crawled references retained locally",
+    "Status": "PARTIAL",
+    "Evidence": "src/references.py; scripts/check_pipeline.py; audit_data/corpus_audit.json",
+    "Remaining action": "New raw-response preservation covers even unidentifiable references; per-version provenance explicitly shares a publication-level lookup. Historical non-arXiv references cannot be recovered offline."
+  },
+  {
+    "Requirement": "M2 root discovery and parsing",
+    "Status": "PARTIAL",
+    "Evidence": "src/parse.py; audit_data/implementation_checks.json",
+    "Remaining action": "CR-only failure fixed and verified on an isolated copy of 2607.07654v1. Plain TeX 2607.05431v1 remains unsupported. Historical parsed outputs intentionally unchanged."
+  },
+  {
+    "Requirement": "Same-key BibTeX field unionization",
+    "Status": "PASS",
+    "Evidence": "src/parse.py:merge_bib_entry; scripts/check_pipeline.py",
+    "Remaining action": "Regression tests cover complementary fields and .bib/.bibitem sources; conflicting originals are preserved in version diagnostics. Applying corrected results to the corpus needs a separately approved parse."
+  },
+  {
+    "Requirement": "Citation remapping and exact-text reuse",
+    "Status": "PASS",
+    "Evidence": "scripts/check_parser_logic.py; audit_data/implementation_checks.json",
+    "Remaining action": "Verified on in-memory regression fixtures; this is not a claim that all corpus references or semantic duplicates are correct."
+  },
+  {
+    "Requirement": "M1 final benchmark evidence",
+    "Status": "FAIL",
+    "Evidence": "m1_data/summary.json; colab_benchmarks.md",
+    "Remaining action": "Collect fresh CPU-only Colab full-run wall time, single-paper time, discovery time, peak/average process-tree RAM, sampled disk peak and final size. Resumed Windows time cannot substitute."
+  },
+  {
+    "Requirement": "M2 final benchmark evidence",
+    "Status": "FAIL",
+    "Evidence": "m2_data/summary.json; colab_benchmarks.md",
+    "Remaining action": "Measure CPU-only Colab parser wall/average time, peak RAM and output sizes on the reviewed corrected revision. Keep table-export timing separate."
+  },
+  {
+    "Requirement": "Executable Colab CPU workflow",
+    "Status": "PASS",
+    "Evidence": "scripts/colab_benchmark.py; notebooks/colab_cpu_benchmarks.ipynb; scripts/check_colab_workflow.py",
+    "Remaining action": "Offline orchestration tests pass; notebook defaults to plan mode. Actual full execution requires explicit --execute / notebook opt-in on Colab."
+  },
+  {
+    "Requirement": "Programmatic report and preserved measurements",
+    "Status": "PASS",
+    "Evidence": "scripts/validate_report.py; scripts/validate_html.py; audit_data/corpus_audit.json",
+    "Remaining action": "MyST executes numerical tables and charts from small exports; explanatory schema tables are authored documentation. Validate hashes and regenerate execution cache after changes."
+  },
+  {
+    "Requirement": "Build, workflow and repository separation",
+    "Status": "PASS",
+    "Evidence": ".github/workflows/deploy.yml; .gitignore; .gitattributes; README.md",
+    "Remaining action": "Both approved repositories are published on the required branches. Pages uses GitHub Actions; deployment and public homepage/M1/M2/audit/Colab content checks passed. Missing corpus work and Colab measurements remain separately identified above."
+  }
+]

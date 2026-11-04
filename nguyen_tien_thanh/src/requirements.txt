@@ -1,0 +1,5 @@
+# Pipeline and offline regression dependencies; validated with Python 3.14.
+# No notebook server or report-rendering packages are needed to run the pipeline.
+arxiv==4.0.2
+requests==2.34.2
+psutil==7.2.2

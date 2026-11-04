@@ -1,0 +1,367 @@
+{
+  "scope": "Local read-only audit; no network, crawling, parsing or corpus writes",
+  "source_extensions": {
+    ".tex": 20713,
+    ".json": 6069,
+    ".bib": 4512,
+    ".sty": 2446,
+    ".bst": 2020,
+    ".cls": 1740,
+    ".bbl": 1160,
+    ".tikz": 986,
+    ".md5": 491,
+    ".dpth": 490,
+    ".csv": 327,
+    ".py": 281,
+    ".m": 195,
+    ".txt": 151,
+    ".minted": 137,
+    ".md": 119,
+    ".ttf": 112,
+    ".svg": 86,
+    ".tfm": 86,
+    ".dat": 68,
+    "(no extension)": 46,
+    ".ldf": 46,
+    ".clo": 43,
+    ".pgf": 37,
+    ".out": 36,
+    ".bbx": 31,
+    ".mx": 30,
+    ".pdf_tex": 28,
+    ".f": 27,
+    ".cfg": 26,
+    ".fd": 26,
+    ".cbx": 24,
+    ".xml": 22,
+    ".pfb": 16,
+    ".jl": 15,
+    ".npy": 14,
+    ".mp4": 13,
+    ".fls": 11,
+    ".dbx": 10,
+    ".fdb_latexmk": 10,
+    ".fig": 9,
+    ".xlsx": 8,
+    ".otf": 7,
+    ".aux": 7,
+    ".ai": 7,
+    ".ps1": 7,
+    ".def": 7,
+    ".ist": 6,
+    ".enc": 5,
+    ".tikzstyles": 5,
+    ".toc": 5,
+    ".yaml": 5,
+    ".c": 4,
+    ".dfy": 4,
+    ".soc": 4,
+    ".nb": 4,
+    ".rels": 4,
+    ".log": 4,
+    ".map": 4,
+    ".eepic": 3,
+    ".tikzdefs": 3,
+    ".sh": 3,
+    ".rs": 3,
+    ".dtx": 3,
+    ".sage": 3,
+    ".wls": 3,
+    ".blg": 3,
+    ".rtx": 3,
+    ".pag": 2,
+    ".bak": 2,
+    ".ptc": 2,
+    ".glo": 2,
+    ".abs": 2,
+    ".rtf": 2,
+    ".set": 2,
+    ".pdf_t": 2,
+    ".r": 2,
+    ".pdfsync": 2,
+    ".cff": 2,
+    ".cut": 2,
+    ".cpp": 1,
+    ".xxx": 1,
+    ".yml": 1,
+    ".toml": 1,
+    ".smt2": 1,
+    ".listing": 1,
+    ".nls": 1,
+    ".xdv": 1,
+    ".vtc": 1,
+    ".cc-by-sa": 1,
+    ".sta": 1,
+    ".mmd": 1,
+    ".lbl": 1,
+    ".ltx": 1,
+    ".mdl": 1,
+    ".lyx": 1,
+    ".lyx_": 1,
+    ".ind": 1,
+    ".bkp_1107": 1,
+    ".css": 1,
+    ".lbx": 1,
+    ".ins": 1,
+    ".iml": 1,
+    ".html": 1,
+    ".qmd": 1,
+    ".ndd": 1,
+    ".ndx": 1,
+    ".docx": 1,
+    ".eps_tex": 1
+  },
+  "files_containing_figure_commands": {
+    "\\includegraphics": 9,
+    "\\begin{figure": 10,
+    "\\caption": 12
+  },
+  "figure_command_sample": {
+    "tex_files_examined": 25,
+    "selection": "first 25 TeX files encountered in discovery order"
+  },
+  "metadata": {
+    "files": 5000,
+    "title_authors_submission_present": 5000,
+    "revision_date_count_matches_versions": 4986,
+    "venue_present": 0
+  },
+  "references": {
+    "arxiv_rows": 84944,
+    "non_arxiv_rows": 0,
+    "unclassified_rows": 0,
+    "legacy_keyed_arxiv_rows": 84944,
+    "files": 5000,
+    "empty_files": 743,
+    "rows": 84944
+  },
+  "download_errors": [
+    {
+      "version": "2607.04159v2",
+      "http": 404,
+      "note": "HTTP 404",
+      "source_directory_exists": false
+    },
+    {
+      "version": "2607.04338v2",
+      "http": 404,
+      "note": "HTTP 404",
+      "source_directory_exists": false
+    },
+    {
+      "version": "2607.04357v2",
+      "http": 404,
+      "note": "HTTP 404",
+      "source_directory_exists": false
+    },
+    {
+      "version": "2607.04456v3",
+      "http": 404,
+      "note": "HTTP 404",
+      "source_directory_exists": false
+    },
+    {
+      "version": "2607.04562v2",
+      "http": 404,
+      "note": "HTTP 404",
+      "source_directory_exists": false
+    },
+    {
+      "version": "2607.04562v3",
+      "http": 404,
+      "note": "HTTP 404",
+      "source_directory_exists": false
+    },
+    {
+      "version": "2607.04837v3",
+      "http": 404,
+      "note": "HTTP 404",
+      "source_directory_exists": false
+    },
+    {
+      "version": "2607.05241v2",
+      "http": 404,
+      "note": "HTTP 404",
+      "source_directory_exists": false
+    },
+    {
+      "version": "2607.05603v2",
+      "http": 404,
+      "note": "HTTP 404",
+      "source_directory_exists": false
+    },
+    {
+      "version": "2607.05682v2",
+      "http": 404,
+      "note": "HTTP 404",
+      "source_directory_exists": false
+    },
+    {
+      "version": "2607.06369v2",
+      "http": 404,
+      "note": "HTTP 404",
+      "source_directory_exists": false
+    },
+    {
+      "version": "2607.06685v2",
+      "http": 404,
+      "note": "HTTP 404",
+      "source_directory_exists": false
+    },
+    {
+      "version": "2607.06931v2",
+      "http": 404,
+      "note": "HTTP 404",
+      "source_directory_exists": false
+    },
+    {
+      "version": "2607.07017v2",
+      "http": 404,
+      "note": "HTTP 404",
+      "source_directory_exists": false
+    },
+    {
+      "version": "2607.07570v2",
+      "http": 404,
+      "note": "HTTP 404",
+      "source_directory_exists": false
+    },
+    {
+      "version": "2607.08465v2",
+      "http": 404,
+      "note": "HTTP 404",
+      "source_directory_exists": false
+    },
+    {
+      "version": "2607.08620v1",
+      "http": 404,
+      "note": "HTTP 404",
+      "source_directory_exists": false
+    }
+  ],
+  "metadata_version_discrepancies": [
+    {
+      "paper": "2607.04049",
+      "discovered_versions": 2,
+      "revision_dates_in_metadata": 3
+    },
+    {
+      "paper": "2607.04294",
+      "discovered_versions": 2,
+      "revision_dates_in_metadata": 3
+    },
+    {
+      "paper": "2607.04491",
+      "discovered_versions": 2,
+      "revision_dates_in_metadata": 3
+    },
+    {
+      "paper": "2607.04528",
+      "discovered_versions": 2,
+      "revision_dates_in_metadata": 3
+    },
+    {
+      "paper": "2607.04535",
+      "discovered_versions": 2,
+      "revision_dates_in_metadata": 4
+    },
+    {
+      "paper": "2607.04603",
+      "discovered_versions": 2,
+      "revision_dates_in_metadata": 3
+    },
+    {
+      "paper": "2607.05458",
+      "discovered_versions": 2,
+      "revision_dates_in_metadata": 3
+    },
+    {
+      "paper": "2607.06717",
+      "discovered_versions": 5,
+      "revision_dates_in_metadata": 6
+    },
+    {
+      "paper": "2607.07588",
+      "discovered_versions": 3,
+      "revision_dates_in_metadata": 4
+    },
+    {
+      "paper": "2607.07664",
+      "discovered_versions": 2,
+      "revision_dates_in_metadata": 3
+    },
+    {
+      "paper": "2607.08033",
+      "discovered_versions": 3,
+      "revision_dates_in_metadata": 4
+    },
+    {
+      "paper": "2607.08199",
+      "discovered_versions": 2,
+      "revision_dates_in_metadata": 3
+    },
+    {
+      "paper": "2607.08332",
+      "discovered_versions": 2,
+      "revision_dates_in_metadata": 3
+    },
+    {
+      "paper": "2607.08642",
+      "discovered_versions": 3,
+      "revision_dates_in_metadata": 4
+    }
+  ],
+  "root_probes": [
+    {
+      "paper": "2607.05431",
+      "recorded_reason": "no_root_file",
+      "current_root_probe": null,
+      "root_with_normalized_line_endings": null,
+      "line_endings": {
+        "dd321.tex": {
+          "LF": 113,
+          "CR": 0
+        }
+      },
+      "compiler": "pdftex",
+      "tex_files": [
+        "dd321.tex"
+      ],
+      "probe_scope": "root selection only; no parsing or writes"
+    },
+    {
+      "paper": "2607.07654",
+      "recorded_reason": "no_root_file",
+      "current_root_probe": null,
+      "root_with_normalized_line_endings": "adiabatic3.tex",
+      "line_endings": {
+        "adiabatic3.tex": {
+          "LF": 0,
+          "CR": 402
+        }
+      },
+      "compiler": "latex",
+      "tex_files": [
+        "adiabatic3.tex"
+      ],
+      "probe_scope": "root selection only; no parsing or writes"
+    }
+  ],
+  "measured_export_sha256": {
+    "m1_data/papers.csv": "a116c454366a199e8fa78a385accd859c565c9285e4a9186b18ba2b0102baf3b",
+    "m1_data/samples.csv": "8a6754aafa6315cc99c868d4fb1e3b9ec6ffd2d4051e49379bc27d6a37e39c04",
+    "m1_data/summary.json": "bc2a42014ce04fd425a142670d3ff9d64e15dc3e8494caa49df50e666a61e51d",
+    "m2_data/example.json": "5ef93d412f441626691618de3ec475f98bfbf29213386728921a942125749160",
+    "m2_data/failures.json": "5442be28981817a04a0a986b9c89c3fabdb7e133889d8d4469cc5f8058dc1065",
+    "m2_data/kind_counts.json": "98875446d4073bd01dbeb3e61e46163fb14e07f68830621d20d94fbe877fca46",
+    "m2_data/papers.csv": "183d0f4955866b06ee3ae73abd83bce76d3f68bde3d3cc4376241445e274e220",
+    "m2_data/samples.csv": "422c212c0c3bfd954666c771c4c39c2d762ad5bc3abcb14701cbf6c5a58ed811",
+    "m2_data/summary.json": "48924c1d4e329f4a0b5754e792d213bec6a4b8a549864f2f334fc0da436dd8b6",
+    "m2_data/tables_stats.json": "ad83c18a9c3c2f3b0803f724e0a74b557b375766386366a03a5183671499b444"
+  },
+  "code_sha256": {
+    "src/parse.py": "7228f31d0eeb00bed25c63a973a506b491d61d53f9a008fecc2016b2ce397f2d",
+    "src/process_sources.py": "0367bf4697bd97d69901aa23168004fa5c1a2e041316ba473147aaaca6a17d5b",
+    "src/references.py": "41b580fe26c700dce02f3e67b20cf60273d0f73a62c8bdd1e33246b83c38fc1d"
+  }
+}

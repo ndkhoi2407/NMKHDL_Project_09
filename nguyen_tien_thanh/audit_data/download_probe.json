@@ -1,0 +1,61 @@
+{
+  "scope": "targeted HEAD only; no source bodies downloaded or historical statuses changed",
+  "historical_failed_count": 17,
+  "observations": [
+    {
+      "version": "2607.04159v2",
+      "historical_http": 404,
+      "method": "HEAD",
+      "observed_at": "2026-11-03T14:57:09.275863+00:00",
+      "http": 404,
+      "final_url": "https://export.arxiv.org/src/2607.04159v2",
+      "content_type": "text/html"
+    },
+    {
+      "version": "2607.04338v2",
+      "historical_http": 404,
+      "method": "HEAD",
+      "observed_at": "2026-11-03T14:57:12.974577+00:00",
+      "http": 404,
+      "final_url": "https://export.arxiv.org/src/2607.04338v2",
+      "content_type": "text/html"
+    },
+    {
+      "version": "2607.04357v2",
+      "historical_http": 404,
+      "method": "HEAD",
+      "observed_at": "2026-11-03T14:57:16.287572+00:00",
+      "http": 404,
+      "final_url": "https://export.arxiv.org/src/2607.04357v2",
+      "content_type": "text/html"
+    },
+    {
+      "version": "2607.04456v3",
+      "historical_http": 404,
+      "method": "HEAD",
+      "observed_at": "2026-11-03T14:57:20.138711+00:00",
+      "http": 404,
+      "final_url": "https://export.arxiv.org/src/2607.04456v3",
+      "content_type": "text/html"
+    },
+    {
+      "version": "2607.04562v2",
+      "historical_http": 404,
+      "method": "HEAD",
+      "observed_at": "2026-11-03T14:57:23.494048+00:00",
+      "http": 429,
+      "final_url": "https://export.arxiv.org/src/2607.04562v2",
+      "content_type": "text/html"
+    },
+    {
+      "version": "2607.04562v3",
+      "historical_http": 404,
+      "method": "HEAD",
+      "observed_at": "2026-11-03T14:57:26.926396+00:00",
+      "http": 429,
+      "final_url": "https://export.arxiv.org/src/2607.04562v3",
+      "content_type": "text/html"
+    }
+  ],
+  "limitation": "HEAD may differ from GET; blocked/network outcomes do not prove source absence"
+}

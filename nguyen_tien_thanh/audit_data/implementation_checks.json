@@ -1,0 +1,47 @@
+{
+  "historical_exports_unchanged": true,
+  "original_failure_files_unchanged": true,
+  "suites": [
+    {
+      "suite": "check_parser_logic.py",
+      "result": "PASS",
+      "scope": "offline fixtures; no real benchmark"
+    },
+    {
+      "suite": "check_pipeline.py",
+      "result": "PASS",
+      "scope": "offline fixtures; no real benchmark"
+    },
+    {
+      "suite": "check_colab_workflow.py",
+      "result": "PASS",
+      "scope": "offline fixtures; no real benchmark"
+    }
+  ],
+  "targeted_probes": [
+    {
+      "version": "2607.05431v1",
+      "status": "failed",
+      "reason": "no_root_file",
+      "root": null,
+      "scope": "isolated copy, in-memory version parse; no parsed.json written"
+    },
+    {
+      "version": "2607.07654v1",
+      "status": "ok",
+      "reason": "",
+      "root": "adiabatic3.tex",
+      "scope": "isolated copy, in-memory version parse; no parsed.json written"
+    }
+  ],
+  "code_sha256": {
+    "src/parse.py": "8de0717fd078c0d943eb810134bfdcc90a9877c62307ce237b26393e9d3b86da",
+    "src/download_sources.py": "b260f465204293dc23287d3503676a5d36c25610ac3e7bd2d9449ddade7a6a34",
+    "src/discover.py": "46dcf2d65c14300bad3ab88d73809568e8ca346e45efac2c36a2175627640e14",
+    "src/metadata.py": "873bd3583a4e0935ac3d91fc0fd632e391fbed9c49434be78e461ed0fb6062f0",
+    "src/references.py": "fdcb76410c346734d04aae454352aac63d51bfb4bd2d1a2f8af59910712b1a5b",
+    "src/process_sources.py": "0367bf4697bd97d69901aa23168004fa5c1a2e041316ba473147aaaca6a17d5b",
+    "src/main.py": "970f3d4a99bbb0ecba37ff850b10a05d3c24b5b5c3addf782933183e6406a97b"
+  },
+  "scope": "current implementation tests; not corpus statistics or performance benchmarks"
+}

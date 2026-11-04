@@ -1,0 +1,24 @@
+# Group 9 — Combined Jupyter Book
+
+**HCMUS | Introduction to Data Science | Group 9**
+
+This book brings together the two arXiv project reports while keeping their
+original chapters and results in separate sections.
+
+**Published book:** [ndkhoi2407.github.io/NMKHDL_Project_09](https://ndkhoi2407.github.io/NMKHDL_Project_09/)
+
+**Group repository:** [github.com/ndkhoi2407/NMKHDL_Project_09](https://github.com/ndkhoi2407/NMKHDL_Project_09)
+
+## Group members
+
+| Student ID | Name |
+|---|---|
+| 24127061 | Ngô Trần Anh Khoa |
+| 24127065 | Nguyễn Đăng Khôi |
+| 24127114 | Thiếu Quang |
+| 24127121 | Nguyễn Tiến Thành |
+
+## Reports
+
+- [Thiếu Quang — Milestones 1–2](thieu_quang/index)
+- [Nguyễn Tiến Thành — arXiv Corpus](nguyen_tien_thanh/index)

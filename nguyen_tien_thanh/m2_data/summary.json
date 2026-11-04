@@ -1,0 +1,55 @@
+{
+  "run": {
+    "created_at": "2026-11-02T17:55:23+07:00",
+    "args": {
+      "workers": null,
+      "limit": null,
+      "cited_only": false,
+      "interval": 1.0,
+      "fresh": true,
+      "report_only": false
+    },
+    "python": "3.14.0",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "cpu_count": 16,
+    "returncode": 0,
+    "measured": true
+  },
+  "timing": {
+    "wall_seconds": 408.36223210000026,
+    "avg_seconds_per_paper": 0.08167244642000004
+  },
+  "memory": {
+    "metric": "rss",
+    "peak_bytes": 1037934592,
+    "avg_bytes": 910083015.3969849,
+    "samples": 398
+  },
+  "output": {
+    "parsed_json_bytes": 1061930992,
+    "tables_jsonl_bytes": 1090187792,
+    "avg_bytes_per_paper": 212386.1984
+  },
+  "data": {
+    "papers_total": 5000,
+    "papers_processed": 5000,
+    "papers_error": 0,
+    "papers_missing": 0,
+    "paper_success_rate": 1.0,
+    "versions_total": 6348,
+    "versions_ok": 6015,
+    "versions_empty": 331,
+    "versions_failed": 2,
+    "version_parse_success_rate": 0.9996676084427456,
+    "version_coverage_overall": 0.9475425330812854,
+    "avg_version_coverage_per_paper": 0.9439,
+    "elements_before_dedup": 2964362,
+    "elements_after_dedup": 2408228,
+    "element_reduction": 0.18760664183389208,
+    "hierarchy_rows": 2958347,
+    "bib_before_dedup": 744894,
+    "bib_after_dedup": 510849,
+    "bib_reduction": 0.3141990672498369,
+    "avg_seconds_per_paper_cpu": 0.5561048
+  }
+}
