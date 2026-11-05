@@ -16,6 +16,11 @@ original chapters and results in separate sections.
 | 24127114 | Thiều Quang |
 | 24127121 | Nguyễn Tiến Thành |
 
+## Tài liệu tham khảo
+
+- [Crawling - HCMUS Introduction to Data Science](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/)
+- [Parsing - HCMUS Introduction to Data Science](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/parsing/)
+
 ## Reports
 
 - [Thiều Quang — Milestones 1–2](thieu_quang/index)
