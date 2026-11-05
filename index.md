@@ -1,4 +1,4 @@
-# Group 9 — Combined Jupyter Book
+# Group 9 — Jupyter Book
 
 **HCMUS | Introduction to Data Science | Group 9**
 
