@@ -5,8 +5,6 @@
 This book brings together the two arXiv project reports while keeping their
 original chapters and results in separate sections.
 
-**Published book:** [ndkhoi2407.github.io/NMKHDL_Project_09](https://ndkhoi2407.github.io/NMKHDL_Project_09/)
-
 **Group repository:** [github.com/ndkhoi2407/NMKHDL_Project_09](https://github.com/ndkhoi2407/NMKHDL_Project_09)
 
 ## Group members

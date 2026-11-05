@@ -1,6 +1,6 @@
 # Milestones 1–2 — arXiv Data Pipeline
 
-**HCMUS | Introduction to Data Science | Group 9**
+**HCMUS | Introduction to Data Science | Group 9 | Name: Thiều Quang | ID: 24127114**
 
 This landing page introduces the cumulative Jupyter Book reports for
 Milestones 1 and 2. The detailed reports are listed in the sidebar.
