@@ -26,6 +26,7 @@ project:
         - file: thieu_quang/index.md
         - file: thieu_quang/milestone1.ipynb
         - file: thieu_quang/milestone2.ipynb
+        - file: thieu_quang/references.md
     - title: Nguyễn Tiến Thành — arXiv Corpus
       children:
         - file: nguyen_tien_thanh/index.md
