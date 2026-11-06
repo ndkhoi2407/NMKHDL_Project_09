@@ -33,6 +33,11 @@ project:
         - file: nguyen_tien_thanh/m2_parsing.md
         - file: nguyen_tien_thanh/crawling_stats.md
         - file: nguyen_tien_thanh/colab_benchmarks.md
+    - title: Nguyễn Đăng Khôi
+      children:
+        - file: khoi/index.md
+        - file: khoi/m1_crawling.md
+        - file: khoi/m2_parsing.md
 
 site:
   template: book-theme
