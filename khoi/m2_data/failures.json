@@ -1,0 +1,41 @@
+{
+  "reasons": [
+    {
+      "status": "empty",
+      "reason": "download:pdf_only",
+      "count": 311
+    },
+    {
+      "status": "empty",
+      "reason": "no_source_dir",
+      "count": 22
+    },
+    {
+      "status": "failed",
+      "reason": "no_root_file",
+      "count": 3
+    },
+    {
+      "status": "empty",
+      "reason": "no_tex_files",
+      "count": 1
+    }
+  ],
+  "failed_versions": [
+    {
+      "arxiv_id": "2608.20579",
+      "version": 1,
+      "reason": "no_root_file"
+    },
+    {
+      "arxiv_id": "2608.23071",
+      "version": 1,
+      "reason": "no_root_file"
+    },
+    {
+      "arxiv_id": "2608.23424",
+      "version": 1,
+      "reason": "no_root_file"
+    }
+  ]
+}
