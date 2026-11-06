@@ -12,7 +12,7 @@ kernelspec:
 **Full Name:** Nguyen Dang Khoi
 **Student ID:** 24127065  
 **Class:** 24KHDL1  
-**Group:** 09  
+**Group:** 09       
 
 ---
 # Milestone 2 — Hierarchical Parsing and Standardization
@@ -36,6 +36,11 @@ All numbers and figures on this page are generated while the book is compiled, f
 import pandas as pd
 from IPython.display import display, Markdown
 import report_utils as ru
+import os
+from pathlib import Path
+
+data_dir = Path.cwd().parent / 'khoi'
+os.chdir(data_dir)
 
 S = ru.load_json("m2_data/summary.json")
 papers = ru.load_csv("m2_data/papers.csv")

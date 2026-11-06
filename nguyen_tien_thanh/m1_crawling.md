@@ -13,6 +13,7 @@ kernelspec:
 **Student ID:** 24127121  
 **Class:** 24KHDL1  
 **Group:** 09  
+
 ---
 
 # Milestone 1 — Crawling
@@ -35,6 +36,12 @@ All numbers and figures on this page are generated while the book is compiled, f
 import pandas as pd
 from IPython.display import display, Markdown
 import report_utils as ru
+import os
+from pathlib import Path
+
+data_dir = Path.cwd().parent / 'nguyen_tien_thanh'
+os.chdir(data_dir)
+
 
 S = ru.load_json("m1_data/summary.json")
 papers = ru.load_csv("m1_data/papers.csv")
