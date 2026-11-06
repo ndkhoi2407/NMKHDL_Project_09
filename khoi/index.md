@@ -43,6 +43,11 @@ All figures and tables in the book are generated while the book is compiled, fro
 import pandas as pd
 from IPython.display import display
 import report_utils as ru
+import os
+from pathlib import Path
+
+data_dir = Path.cwd().parent / 'khoi'
+os.chdir(data_dir)
 
 m1 = ru.load_json("m1_data/summary.json")
 m2 = ru.load_json("m2_data/summary.json")

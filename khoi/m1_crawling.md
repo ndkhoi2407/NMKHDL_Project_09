@@ -18,7 +18,7 @@ kernelspec:
 
 # Milestone 1 — Crawling
 
-## 1. Objectives
+## 1. Objectives   
 
 Milestone 1 collects scientific papers from arXiv. Its goals are:
 
@@ -36,6 +36,11 @@ All numbers and figures on this page are generated while the book is compiled, f
 import pandas as pd
 from IPython.display import display, Markdown
 import report_utils as ru
+import os
+from pathlib import Path
+
+data_dir = Path.cwd().parent / 'khoi'
+os.chdir(data_dir)
 
 S = ru.load_json("m1_data/summary.json")
 papers = ru.load_csv("m1_data/papers.csv")
