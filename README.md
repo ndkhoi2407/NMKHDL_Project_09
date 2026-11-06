@@ -22,3 +22,15 @@ When fetching references using Schematic Scholar API, exponential backoff is app
 
 ## Milestone 2 — Parse the local corpus
 
+```powershell
+python .\src\parse.py --prefix 2608 --start 19007 --end 24006
+```
+## Github Report Repo:
+https://github.com/ndkhoi2407/NMKHDL_Report
+
+## Github Rendered Report
+https://ndkhoi2407.github.io/NMKHDL_Report/
+
+
+
+
