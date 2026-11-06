@@ -34,3 +34,10 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.temp
+# M2 generated outputs
+/m2_output/
+/m2_output_revision/
+/m2_recovery/
+/m2_final/
+/m2_benchmark_output/
+
