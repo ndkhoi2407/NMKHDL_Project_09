@@ -38,6 +38,11 @@ project:
         - file: khoi/index.md
         - file: khoi/m1_crawling.md
         - file: khoi/m2_parsing.md
+    - title: Ngô Trần Anh Khoa
+      children:
+        - file: ngo_tran_anh_khoa/index.md
+        - file: ngo_tran_anh_khoa/m1_crawling.md
+        - file: ngo_tran_anh_khoa/m2_parsing.md
 
 site:
   template: book-theme
