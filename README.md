@@ -1,273 +1,39 @@
-# arXiv Milestone 1
+# NMKHDL_Project_09
+Introduction to Data Science Project
 
-## 1. Project Overview
+## Environment
 
-This project implements Milestone 1 of an arXiv paper crawling and dataset construction pipeline.
-
-The system discovers arXiv papers within a specified ID range, downloads all available versions of their source files, preserves the original LaTeX structure, removes binary image files, collects metadata, retrieves references from Semantic Scholar, and generates statistics for evaluating the resulting corpus.
-
-## 2. Main Objectives
-
-The pipeline performs the following tasks:
-
-- Discover all arXiv papers in a specified ID range.
-- Identify all available versions of each paper.
-- Download the source files for each version.
-- Preserve the original LaTeX directory and file structure.
-- Remove binary image files while preserving LaTeX image references/commands.
-- Collect paper metadata.
-- Retrieve reference information using Semantic Scholar.
-- Record crawling status and errors.
-- Generate corpus statistics and benchmark information.
-
-## 3. Project Structure
-
-```text
-arxiv-milestone1/
-├── data/           # Local working data; not committed to Git
-│   ├── <paper-id>/
-│   │   ├── v1/
-│   │   ├── v2/
-│   │   ├── ...
-│   │   ├── metadata.json
-│   │   └── references.json
-│   ├── discovery.json
-│   ├── download_status.json
-│   ├── metadata_status.json
-│   ├── references_status.json
-│   ├── timings.json
-│   └── benchmark/
-│
-├── src/            # Source code
-│   ├── discover.py
-│   ├── download_sources.py
-│   ├── process_sources.py
-│   ├── metadata.py
-│   ├── references.py
-│   ├── benchmark.py
-│   ├── main.py
-│   └── requirements.txt
-│
-├── README.md
-└── .gitignore
-```
-
-## 4. Requirements
-
-- Python 3.14+
-- Internet connection
-- Semantic Scholar API key for reference retrieval
-
-Required Python packages are listed in:
-
-```text
-src/requirements.txt
-```
-
-Install them with:
+- Python 3.14
+- Install the required dependencies:
 
 ```powershell
-pip install -r src/requirements.txt
+py -3.14 -m pip install -r .\src\requirements.txt
 ```
 
-## 5. Configuration
+## Milestone 1 — Data Crawling
 
-The reference retrieval module uses the Semantic Scholar API.
-
-Set the API key as an environment variable before running the reference step.
-
-### PowerShell
+Collect 5,000 assigned arXiv publications, including source files, metadata, and bibliographic references.
 
 ```powershell
-$env:S2_API_KEY="YOUR_API_KEY"
+python .\src\main.py --prefix 2608 --start 24007 --end 29006
 ```
 
-The API key is read from the environment and is not stored in the project source code.
+The crawler performs publication discovery, source downloading, source processing, metadata collection, and reference retrieval. Checkpoints are used to preserve progress, while exponential backoff helps handle API rate limits.
 
-## 6. Running the Pipeline
+## Milestone 2 — Hierarchical Parsing and Standardization
 
-The complete pipeline can be executed through `main.py`.
+Parse the collected LaTeX corpus, extract document elements, reconstruct document hierarchies, normalize content, deduplicate elements across versions, and standardize bibliography records.
 
-Example:
+Run the M2 benchmark:
 
 ```powershell
-python src/main.py --prefix 2608 --start 24007 --end 29006
+python .\src\m2_benchmark.py --data .\data --output .\m2_benchmark_output --discovery .\data\discovery.json
 ```
 
-The pipeline consists of the following stages:
+## Project Reports
 
-1. Discovery
-2. Source download
-3. Source processing
-4. Metadata collection
-5. Reference retrieval
+- **GitHub Report Repository:**  
+  https://github.com/khoabautroi/NMKHDL_G09_report
 
-Individual stages can also be executed separately when necessary.
-
-### Discovery
-
-```powershell
-python src/discover.py --prefix 2608 --start 24007 --end 29006 --fresh
-```
-
-### Source Download
-
-```powershell
-python src/download_sources.py
-```
-
-### Source Processing
-
-```powershell
-python src/process_sources.py
-```
-
-### Metadata
-
-```powershell
-python src/metadata.py
-```
-
-### References
-
-```powershell
-python src/references.py
-```
-
-## 7. Output Data
-
-For each paper, the dataset contains its available versions together with metadata and references.
-
-Example:
-
-```text
-data/
-└── 2608-24007/
-    ├── v1/
-    │   ├── main.tex
-    │   ├── *.tex
-    │   ├── *.bib
-    │   └── ...
-    ├── v2/
-    │   ├── main.tex
-    │   ├── *.tex
-    │   ├── *.bib
-    │   └── ...
-    ├── metadata.json
-    └── references.json
-```
-
-The LaTeX directory structure is preserved. Binary image files are removed during source processing while LaTeX image commands are preserved.
-
-## 8. Status and Log Files
-
-The pipeline records its progress and results in JSON files:
-
-- `discovery.json` — discovery results and ID-range statistics.
-- `download_status.json` — source download status for each version.
-- `metadata_status.json` — metadata retrieval status.
-- `references_status.json` — Semantic Scholar reference retrieval status.
-- `timings.json` — timing information from pipeline runs.
-
-These files allow failed or incomplete operations to be identified without losing the entire crawl.
-
-## 9. Benchmark
-
-The project provides an end-to-end benchmark script for measuring the performance of the complete M1 pipeline, including discovery, source downloading, source processing, metadata crawling, and reference crawling.
-
-The benchmark records:
-- Total runtime
-- Average time per paper
-- Step-by-step runtime
-- Peak and average RAM usage
-- Peak disk usage
-- Final corpus size
-- Number of papers and versions processed
-- Download and processing success rates
-
-To run the end-to-end benchmark:
-
-```bash
-python src/benchmark.py --prefix 2608 --start 24007 --end 29006
-```
-
-For an existing benchmark output, the report-only mode can be used to inspect or regenerate benchmark statistics without rerunning the full pipeline:
-
-```bash
-python src/benchmark.py --report-only
-```
-
-Benchmark output is stored in:
-
-```text
-data/benchmark/
-├── summary.json
-├── samples.csv
-└── papers.csv
-```
-
-## 10. Current Dataset Statistics
-
-The completed corpus currently contains:
-
-| Metric | Result |
-|---|---:|
-| IDs in range | 5,000 |
-| Papers found | 5,000 |
-| Versions | 6,037 |
-| Versions downloaded | 5,734 |
-| PDF-only versions | 284 |
-| Withdrawn/404 versions | 19 |
-| Fully processed papers | 4,981 |
-| Overall success rate | 99.62% |
-| TeX coverage | 94.76% |
-| Metadata success rate | 100% |
-| Reference retrieval success rate | 100% |
-| Papers without Semantic Scholar record | 8 |
-| Average references per paper | 32.75 |
-| Final corpus size | ~1.70 GiB |
-
-The 19 HTTP 404 version errors correspond to withdrawn versions and are therefore treated as unavailable versions rather than crawler failures.
-
-Eight papers do not have a corresponding Semantic Scholar record. Their `references.json` files are represented as empty JSON objects (`{}`).
-
-## 11. Source Size Reduction
-
-Binary image removal substantially reduces the storage size of the corpus while preserving the LaTeX source structure.
-
-Average paper size:
-
-```text
-Before cleanup: 4,793,247 bytes
-After cleanup:    376,111 bytes
-```
-
-This corresponds to a substantial reduction in average storage size while retaining the textual LaTeX source.
-
-## 12. Reproducibility
-
-To reproduce the experiment:
-
-1. Create and activate a Python virtual environment.
-2. Install the dependencies from `src/requirements.txt`.
-3. Configure the Semantic Scholar API key.
-4. Run the discovery stage for the required ID range.
-5. Run the source download stage.
-6. Process downloaded sources.
-7. Retrieve metadata.
-8. Retrieve references.
-9. Run the end-to-end benchmark and generate benchmark statistics.
-
-The generated status files can be used to inspect successful, failed, and unavailable records.
-
-## 13. Notes
-
-The full-scale crawl was performed on the target ID range:
-
-```text
-2608.24007 – 2608.29006
-```
-
-The final corpus contains all 5,000 IDs in the requested range.
-
-Benchmark performance will be reported based on an end-to-end benchmark run in a CPU-only Google Colab environment, as required by the project specification.
+- **GitHub Pages — Online Reports:**  
+  https://khoabautroi.github.io/NMKHDL_G09_report/
