@@ -26,12 +26,11 @@ project:
 
   toc:
     - file: index.md
-    - title: Thiều Quang — Milestones 1–3
+    - title: Thiều Quang — Milestones 1–2
       children:
         - file: thieuquang_24127114/index.md
         - file: thieuquang_24127114/milestone1.ipynb
         - file: thieuquang_24127114/milestone2.ipynb
-        - file: thieuquang_24127114/milestone3.ipynb
     - title: Nguyễn Tiến Thành — arXiv Corpus
       children:
         - file: nguyen_tien_thanh/index.md
