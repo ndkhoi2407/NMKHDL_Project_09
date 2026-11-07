@@ -57,8 +57,6 @@ Replace the example owner/name and use the exact range from the registration she
 The current bundle is local and has not been published yet. Public publishing is blocked until manual review and retraining are complete. The personal repository ID is still required; the course submission is not complete until the public link is verified and submitted through Moodle.
 
 ## Limitations and release checklist
-
-- The two uploaded ZIPs **do not contain the original `data/records/` raw TeX archives**; this module consumes the exported five tables without re-crawling/re-parsing.
 - `manual_labels_REVIEWED.csv` is the sole authoritative manual-label file: 100 entries (41 `matched`, 59 `none`). Do not use or retain alternate manual-label copies as training input.
 - Year conflict is common even among positive pairs because BibTeX publication year and arXiv submission year may differ; treat year features as supporting signals, not hard identity rules.
 - `pyarrow` is needed for Parquet export and `huggingface_hub` is needed for publishing. The exporter creates six sharded configurations; the separate publisher validates the individual range and uploads only the dataset card, export summary, and Parquet shards.
