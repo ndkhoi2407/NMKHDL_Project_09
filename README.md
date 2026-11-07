@@ -130,12 +130,10 @@ The compiled site renders all 3 milestones (`milestone1.ipynb`, `milestone2.ipyn
 │   ├── index.md                    # Landing page
 │   ├── milestone1.ipynb            # Milestone 1 report
 │   ├── milestone2.ipynb            # Milestone 2 report
-│   ├── milestone3.ipynb            # Milestone 3 report (with MRR@5 equation)
 │   ├── report_data/                # Aggregated summary & benchmark data
 │   └── myst.yml                    # MyST configuration
 ├── MILESTONE1.md                   # Milestone 1 specification & audit notes
 ├── MILESTONE2.md                   # Milestone 2 specification & audit notes
-├── MILESTONE3.md                   # Milestone 3 specification & audit notes
 └── README.md                       # This comprehensive documentation
 ```
 
