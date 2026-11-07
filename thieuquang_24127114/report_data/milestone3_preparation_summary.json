@@ -1,0 +1,27 @@
+{
+  "member_count_assumed": 1,
+  "manual_publications_selected": 5,
+  "manual_entries_pending_review": 100,
+  "manual_publication_ids": [
+    "2607.13903",
+    "2607.14503",
+    "2607.15903",
+    "2607.17851",
+    "2607.18121"
+  ],
+  "automatic_publications_labeled": 500,
+  "automatic_label_entries": 23958,
+  "auto_matches": 7108,
+  "auto_none": 16850,
+  "required_auto_publications": 500,
+  "seed": 42,
+  "manual_labeling_complete": true,
+  "training_complete": true,
+  "official_test_mrr_at_5": 0.1553398058252427,
+  "limitations": [
+    "Automatic labels are heuristics, not human ground truth.",
+    "Manual labels must be reviewed and verified by group members.",
+    "Train and final dataset export require verified manual labels."
+  ],
+  "manual_labels_sha256": "c65ffd8a9fba5a1f6d4be85f6a4e976d3915b5f4514db4182c1327e34126e40f"
+}

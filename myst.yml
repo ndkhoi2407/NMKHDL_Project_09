@@ -10,22 +10,27 @@ project:
     - .venv/**
     - node_modules/**
     - _build/**
-    - thieu_quang/report_data/**
+    - thieuquang_24127114/report_data/**
+    - thieuquang_24127114/src/**
+    - thieuquang_24127114/tests/**
     - nguyen_tien_thanh/m1_data/**
     - nguyen_tien_thanh/m2_data/**
     - nguyen_tien_thanh/audit_data/**
     - nguyen_tien_thanh/notebooks/**
     - nguyen_tien_thanh/src/**
     - nguyen_tien_thanh/scripts/**
+    - khoi/m1_data/**
+    - khoi/m2_data/**
     - README.md
 
   toc:
     - file: index.md
-    - title: Thiều Quang — Milestones 1–2
+    - title: Thiều Quang — Milestones 1–3
       children:
-        - file: thieu_quang/index.md
-        - file: thieu_quang/milestone1.ipynb
-        - file: thieu_quang/milestone2.ipynb
+        - file: thieuquang_24127114/index.md
+        - file: thieuquang_24127114/milestone1.ipynb
+        - file: thieuquang_24127114/milestone2.ipynb
+        - file: thieuquang_24127114/milestone3.ipynb
     - title: Nguyễn Tiến Thành — arXiv Corpus
       children:
         - file: nguyen_tien_thanh/index.md

@@ -1,9 +1,9 @@
-# Milestones 1–2 — arXiv Data Pipeline
+# Milestones 1–3 — arXiv Data Pipeline
 
 **HCMUS | Introduction to Data Science | Group 9 | Name: Thiều Quang | ID: 24127114**
 
 This landing page introduces the cumulative Jupyter Book reports for
-Milestones 1 and 2. The detailed reports are listed in the sidebar.
+Milestones 1, 2, and 3. The detailed reports are listed in the sidebar.
 
 ## Project stages
 
@@ -11,6 +11,9 @@ Milestones 1 and 2. The detailed reports are listed in the sidebar.
    and publication-level reference metadata for the assigned papers.
 2. **Milestone 2 — Hierarchical parsing and standardization:** parse and
    normalize LaTeX content, citations, and document structure.
+3. **Milestone 3 — Reference matching:** match standardized BibTeX citations
+   to arXiv-keyed crawled references, evaluate via MRR@5, and export Parquet datasets.
+
 ## Milestone 1 — Crawling arXiv
 
 **Assigned range:** `2607.13694` to `2607.18693` (5,000 base identifiers, inclusive).
@@ -23,6 +26,7 @@ Milestones 1 and 2. The detailed reports are listed in the sidebar.
 4. Measure crawl coverage, archive bytes before vs retained LaTeX bytes, reference coverage, time, RAM, and disk use.
 
 The *actual* statistics, figures and tables below are generated during notebook compilation from exported local crawler logs. If data has not been synced yet, charts are omitted instead of presenting fabricated metrics.
+
 ### Source and reliability policy
 
 - Atom API `id_list` can provide exact-version metadata, but it may return HTTP 429. OAI-PMH `arXivRaw` is used for targeted discovery and version dates when appropriate; it **does not provide historical titles/authors/abstracts for every revision**.
@@ -38,3 +42,15 @@ This stage parses the crawled source files, standardizes their content,
 and builds structured document hierarchies.
 
 [Open the Milestone 2 report](milestone2)
+
+## Milestone 3 — Reference Matching
+
+This stage computes 10 interpretable features, trains a supervised ranking model on human-reviewed labels, generates Top-5 predictions evaluated with MRR@5, and produces the final six-table Parquet dataset.
+
+[Open the Milestone 3 report](milestone3)
+
+## Tài liệu tham khảo
+
+- [Crawling - HCMUS Introduction to Data Science](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/)
+- [Parsing - HCMUS Introduction to Data Science](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/parsing/)
+- [Matching - HCMUS Introduction to Data Science](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/matching/)

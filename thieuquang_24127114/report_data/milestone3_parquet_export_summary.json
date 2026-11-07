@@ -1,0 +1,32 @@
+{
+  "tables": {
+    "papers": {
+      "rows": 5000,
+      "parquet_shards": 0
+    },
+    "references": {
+      "rows": 80752,
+      "parquet_shards": 0
+    },
+    "elements": {
+      "rows": 2280571,
+      "parquet_shards": 0
+    },
+    "hierarchy": {
+      "rows": 2811459,
+      "parquet_shards": 0
+    },
+    "bibtex": {
+      "rows": 383892,
+      "parquet_shards": 0
+    },
+    "predictions": {
+      "rows": 24058,
+      "parquet_shards": 0
+    }
+  },
+  "student_arxiv_min": null,
+  "student_arxiv_max": null,
+  "mode": "validate_only",
+  "published_online": false
+}
