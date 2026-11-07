@@ -24,15 +24,6 @@ Milestone 3: Publication-scoped candidate ranking & citation-to-reference matchi
 Train / Valid / Test -> Top-5 Predictions -> MRR@5 Evaluation -> Sharded Parquet Export
 ```
 
-### Overall Pipeline Results
-
-| Component | Scope / Assigned Metric | Recorded Result |
-|---|---|---|
-| **Milestone 1 — Crawling** | Assigned publications | **5,000** |
-| | Total publication versions | **6,417** |
-| | Crawled references (S2) | **80,752** |
-| **Milestone 2 — Parsing** | Parsed versions | **6,105** (312 empty-source accounted for) |
-| | Standardized & deduplicated BibTeX | **383,892** |
 
 ---
 
