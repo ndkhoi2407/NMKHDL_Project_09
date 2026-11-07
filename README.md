@@ -120,11 +120,7 @@ The compiled site renders all 3 milestones (`milestone1.ipynb`, `milestone2.ipyn
 │   │   ├── latex.py                # TeX AST, hierarchy & sentence extraction
 │   │   ├── bibliography.py         # BibTeX normalization & union
 │   │   └── pipeline.py             # Pipeline runner
-│   └── milestone3/                 # Milestone 3: reference matching
-│       ├── matching.py             # 10 candidate features & heuristic scoring
-│       ├── cli.py                  # prepare, train, evaluate (MRR@5)
-│       ├── export.py               # 6-table Parquet exporter
-│       └── publish.py              # HF dataset publisher
+│
 ├── tests/                          # 28 offline unit & integration tests
 ├── report_repo/                    # Jupyter Book report source & data
 │   ├── index.md                    # Landing page
