@@ -129,7 +129,7 @@ py -3.11 -m src.milestone3.export --root . `
 #### Evaluation Metric (MRR@5)
 
 $$
-\operatorname{MRR@5}=\frac{1}{|Q|}\sum_{i=1}^{|Q|}\mathrm{RR@5}_i,
+\mathrm{MRR@5}=\frac{1}{|Q|}\sum_{i=1}^{|Q|}\mathrm{RR@5}_i,
 \qquad
 \mathrm{RR@5}_i=\begin{cases}
 1/r_i,&1\leq r_i\leq5,\\
