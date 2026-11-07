@@ -24,7 +24,7 @@ original chapters and results in separate sections.
 
 ## Reports
 
-* [Thiều Quang — Milestones 1–3](thieuquang_24127114/index)
+* [Thiều Quang — Milestones 1–2](thieuquang_24127114/index)
 * [Nguyễn Tiến Thành — arXiv Corpus](nguyen_tien_thanh/index)
 * [Ngô Trần Anh Khoa — Milestones 1–2](ngo_tran_anh_khoa/index.md)
 * [Nguyễn Đăng Khôi](khoi/index)
