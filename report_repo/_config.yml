@@ -9,7 +9,6 @@ sphinx:
   config:
     exclude_patterns:
       - README.md
-      - MILESTONE2_REPORT.md
       - '*.bak'
       - poster_A2_individual/**
       - _build*/**

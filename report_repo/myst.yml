@@ -1,14 +1,16 @@
 version: 1
 project:
-  title: arXiv Corpus — Project Report
-  description: Milestone 1 crawling and Milestone 2 parsing results for HCMUS Group 09.
+  title: arXiv Corpus - Project Report
+  description: Milestone 1 crawling, Milestone 2 parsing, and Milestone 3 reference matching for HCMUS Group 09.
   github: https://github.com/thieuquang18/NMKHDL_report
   toc:
     - file: index.md
     - file: milestone1.ipynb
-      title: Milestone 1 — Crawling
+      title: Milestone 1 - Crawling
     - file: milestone2.ipynb
-      title: Milestone 2 — Parsing
+      title: Milestone 2 - Parsing
+    - file: milestone3.ipynb
+      title: Milestone 3 - Reference Matching
 site:
   template: book-theme
   options:

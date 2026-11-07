@@ -40,3 +40,12 @@ This stage parses the crawled source files, standardizes their content,
 and builds structured document hierarchies.
 
 [Open the Milestone 2 report](milestone2)
+
+## Milestone 3 - Reference Matching
+
+[Open the Milestone 3 report](milestone3)
+
+## Tài liệu tham khảo
+
+- [Crawling - HCMUS Introduction to Data Science](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/)
+- [Parsing - HCMUS Introduction to Data Science](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/parsing/)
