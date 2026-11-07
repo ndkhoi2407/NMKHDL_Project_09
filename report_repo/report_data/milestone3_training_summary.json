@@ -1,0 +1,59 @@
+{
+  "status": "trained_with_manual_and_weak_auto_labels",
+  "team_members": 1,
+  "manual_publications": 5,
+  "auto_publications": 500,
+  "manual_entries": 100,
+  "automatic_entries": 23958,
+  "prediction_rows": 24058,
+  "candidate_matrix_rows": {
+    "train": 526114,
+    "valid": 265,
+    "test": 3500
+  },
+  "feature_names": [
+    "title_token_jaccard",
+    "title_ref_coverage",
+    "title_cite_coverage",
+    "title_char_similarity",
+    "bigram_jaccard",
+    "author_token_overlap",
+    "year_agreement",
+    "year_conflict",
+    "arxiv_id_exact",
+    "title_length_ratio"
+  ],
+  "evaluation": {
+    "train_manual": {
+      "publications": 3,
+      "entries": 60,
+      "mrr_at_5": 0.5333333333333333
+    },
+    "train_automatic": {
+      "publications": 498,
+      "entries": 23862,
+      "mrr_at_5": 0.2972927667421004
+    },
+    "valid_manual": {
+      "publications": 1,
+      "entries": 20,
+      "mrr_at_5": 0.0
+    },
+    "valid_automatic": {
+      "publications": 1,
+      "entries": 13,
+      "mrr_at_5": 0.38461538461538464
+    },
+    "test_manual": {
+      "publications": 1,
+      "entries": 20,
+      "mrr_at_5": 0.45
+    },
+    "test_automatic": {
+      "publications": 1,
+      "entries": 83,
+      "mrr_at_5": 0.08433734939759036
+    }
+  },
+  "caveat": "Automatic labels are weak pseudo-ground-truth, not human-verified. Test manual and automatic scores are separate."
+}
