@@ -1,32 +1,56 @@
 version: 1
 
 project:
-  title: Thiều Quang (24127114) — Milestones 1–3
+  title: NMKHDL_Project_09 — Group 9
   subtitle: Introduction to Data Science · HCMUS
-  description: Jupyter Book reports for Thiều Quang (24127114).
+  description: Jupyter Book reports for Group 9.
   github: https://github.com/ndkhoi2407/NMKHDL_Project_09
 
   exclude:
     - .venv/**
     - node_modules/**
     - _build/**
-    - index.md
-    - khoi/**
-    - ngo_tran_anh_khoa/**
-    - nguyen_tien_thanh/**
     - report_repo/**
     - thieuquang_24127114/report_data/**
     - thieuquang_24127114/src/**
     - thieuquang_24127114/tests/**
+    - nguyen_tien_thanh/m1_data/**
+    - nguyen_tien_thanh/m2_data/**
+    - nguyen_tien_thanh/audit_data/**
+    - nguyen_tien_thanh/notebooks/**
+    - nguyen_tien_thanh/src/**
+    - nguyen_tien_thanh/scripts/**
+    - khoi/m1_data/**
+    - khoi/m2_data/**
     - README.md
 
   toc:
-    - file: thieuquang_24127114/index.md
-    - file: thieuquang_24127114/milestone1.ipynb
-    - file: thieuquang_24127114/milestone2.ipynb
-    - file: thieuquang_24127114/milestone3.ipynb
+    - file: index.md
+    - title: Thiều Quang — Milestones 1–3
+      children:
+        - file: thieuquang_24127114/index.md
+        - file: thieuquang_24127114/milestone1.ipynb
+        - file: thieuquang_24127114/milestone2.ipynb
+        - file: thieuquang_24127114/milestone3.ipynb
+    - title: Nguyễn Tiến Thành — arXiv Corpus
+      children:
+        - file: nguyen_tien_thanh/index.md
+        - file: nguyen_tien_thanh/m1_crawling.md
+        - file: nguyen_tien_thanh/m2_parsing.md
+        - file: nguyen_tien_thanh/crawling_stats.md
+        - file: nguyen_tien_thanh/colab_benchmarks.md
+    - title: Nguyễn Đăng Khôi
+      children:
+        - file: khoi/index.md
+        - file: khoi/m1_crawling.md
+        - file: khoi/m2_parsing.md
+    - title: Ngô Trần Anh Khoa
+      children:
+        - file: ngo_tran_anh_khoa/index.md
+        - file: ngo_tran_anh_khoa/m1_crawling.md
+        - file: ngo_tran_anh_khoa/m2_parsing.md
 
 site:
   template: book-theme
   options:
-    logo_text: Thiều Quang · 24127114
+    logo_text: Group 9
