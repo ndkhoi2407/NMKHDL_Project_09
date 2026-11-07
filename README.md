@@ -2,7 +2,7 @@
 
 **HCMUS — Introduction to Data Science | Group 09**  
 **Group repository:** [ndkhoi2407/NMKHDL_Project_09](https://github.com/ndkhoi2407/NMKHDL_Project_09)  
-**Published Jupyter Book:** [ndkhoi2407.github.io/NMKHDL_Project_09](https://ndkhoi2407.github.io/NMKHDL_Project_09/)  
+**Published Jupyter Book:** ([https://ndkhoi2407.github.io/NMKHDL_Project_09/]) 
 
 ---
 
