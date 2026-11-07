@@ -1,11 +1,8 @@
 ﻿# NMKHDL GROUP 09 — End-to-End Pipeline & Source Code (Milestones 1, 2 & 3)
 
 **HCMUS — Introduction to Data Science | Group 09**  
-**Contributor:** Thiều Quang (`24127114`)  
-**Assigned corpus range:** `2607.13694` through `2607.18693` (5,000 publications).  
 **Group repository:** [ndkhoi2407/NMKHDL_Project_09](https://github.com/ndkhoi2407/NMKHDL_Project_09)  
 **Published Jupyter Book:** [ndkhoi2407.github.io/NMKHDL_Project_09](https://ndkhoi2407.github.io/NMKHDL_Project_09/)  
-**Individual report:** [thieuquang18.github.io/NMKHDL_report](https://thieuquang18.github.io/NMKHDL_report/)
 
 ---
 
@@ -36,11 +33,6 @@ Train / Valid / Test -> Top-5 Predictions -> MRR@5 Evaluation -> Sharded Parquet
 | | Crawled references (S2) | **80,752** |
 | **Milestone 2 — Parsing** | Parsed versions | **6,105** (312 empty-source accounted for) |
 | | Standardized & deduplicated BibTeX | **383,892** |
-| **Milestone 3 — Matching** | Human-reviewed manual labels | **100/100** (41 `matched`, 59 `none`) |
-| | Weak automatic pseudo-labels | **23,958** across 500 publications |
-| | Evaluation metric (MRR@5) | **Manual Test = 0.4500** (9/20 ranked #1, 11 `none`) |
-| | Top-5 predictions generated | **24,058 rows** (for 505 sampled papers) |
-| | Six-table Parquet bundle | Generated for `papers`, `references`, `elements`, `hierarchy`, `bibtex`, `predictions` |
 
 ---
 
@@ -108,47 +100,6 @@ py -3.11 -m src.milestone2.cli --output .\data
 
 Outputs are written to `data/milestone2/tables/` (`elements.jsonl`, `hierarchy.jsonl`, `bibtex.jsonl`). See [MILESTONE2.md](./MILESTONE2.md) for hierarchy parsing and citation normalization details.
 
-### Milestone 3 — Reference Matching & Evaluation
-
-Milestone 3 matches standardized BibTeX entries to arXiv references from the *same publication*.
-
-```powershell
-# 1. Prepare candidates and unreviewed CSV (5 papers per member * K members)
-py -3.11 -m src.milestone3.cli prepare --root . --output .\data\milestone3 --members 1
-
-# 2. Train supervised ranker (StandardScaler + LogisticRegression) using reviewed manual labels
-py -3.11 -m src.milestone3.cli train --root . --output .\data\milestone3 --members 1
-
-# 3. Export 6-table Parquet bundle (requires pyarrow)
-py -3.11 -m src.milestone3.export --root . `
-    --output .\data\milestone3\huggingface_dataset `
-    --predictions .\data\milestone3\predictions.jsonl `
-    --min-id 2607.13694 --max-id 2607.18693
-```
-
-#### Evaluation Metric (MRR@5)
-
-$$
-\operatorname{MRR@5}=\frac{1}{|Q|}\sum_{i=1}^{|Q|}\mathrm{RR@5}_i,
-\qquad
-\mathrm{RR@5}_i=\begin{cases}
-1/r_i,&1\leq r_i\leq5,\\
-0,&\text{otherwise.}
-\end{cases}
-$$
-
-| Split | Label source | Publications | Entries | MRR@5 |
-|---|---|---|---|---|
-| Train | Manual | 3 | 60 | **0.5333** |
-| Train | Automatic (weak) | 498 | 23,862 | **0.2973** |
-| Validation | Manual (`2607.14503`) | 1 | 20 | **0.0000** (all 20 citations were `none`) |
-| Validation | Automatic (weak) | 1 | 13 | **0.3846** |
-| Test | Manual (`2607.17851`) | 1 | 20 | **0.4500** (9/9 matched ranked #1; 11 `none`) |
-| Test | Automatic (weak) | 1 | 83 | **0.0843** (7/7 matched ranked #1) |
-
-See [MILESTONE3.md](./MILESTONE3.md) for 10-feature definitions and training details.
-
----
 
 ## 5. Jupyter Book Reports
 
