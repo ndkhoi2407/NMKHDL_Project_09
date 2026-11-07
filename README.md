@@ -1,4 +1,4 @@
-﻿# NMKHDL GROUP 09 — End-to-End Pipeline & Source Code (Milestones 1, 2 & 3)
+﻿# NMKHDL GROUP 09  (Milestones 1, 2 & 3)
 
 **HCMUS — Introduction to Data Science | Group 09**  
 **Group repository:** [ndkhoi2407/NMKHDL_Project_09](https://github.com/ndkhoi2407/NMKHDL_Project_09)  
