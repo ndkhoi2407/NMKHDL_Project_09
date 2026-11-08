@@ -43,7 +43,7 @@ py -3.11 -m pip install -r .\src\milestone3\requirements.txt
 
 ## 3. Running the Test Suite
 
-Run the full offline test suite (28 integration and unit tests covering Milestones 1, 2, and 3):
+Run the full offline test suite ( unit tests covering Milestones 1, 2):
 
 ```powershell
 py -3.11 -m unittest discover -s .\tests -v
