@@ -20,7 +20,7 @@ kernelspec:
 
 **Introduction to Data Science · University of Science, VNU-HCM (HCMUS) · Group 09**
 
-An auditable report on collecting versioned scientific sources and transforming LaTeX into reusable hierarchical data. The assigned range is `2607.03694–2607.08693`. Implementation descriptions are grounded in the included `src/` programs; every numerical result below comes from this project's small benchmark exports.
+An auditable report on collecting versioned scientific sources and transforming LaTeX into reusable hierarchical data. The assigned range is `2607.03694–2607.08693`. Implementation descriptions are grounded in the included `src/` programs; historical Windows results below come from this project's small benchmark exports. The separate Colab addition reports sample measurements and student-reported full-corpus results.
 
 ```{important}
 Milestone 1 is a report-only corpus snapshot with timings from a resumed run; its peak RAM was not measured. Milestone 2 contains an instrumented parser run. “Not measured” is never replaced by zero. The site build reads only the small report exports and never starts a crawler or parser.
@@ -34,7 +34,7 @@ The project is built in stages, and each milestone has its own section:
 - **[Milestone 2 — Hierarchical Parsing and Standardization](m2_parsing.md)**: conversion of the LaTeX sources into a hierarchy of elements,
   cleanup and normalization, extraction of the references into BibTeX, and deduplication across versions.
 
-All figures and tables in the book are generated while the book is compiled, from the result files in `m1_data/` and `m2_data/`.
+Historical Windows figures and numerical tables are generated while the book is compiled, from the result files in `m1_data/` and `m2_data/`. The [Google Colab CPU benchmark](colab_benchmarks.md) adds four benchmark sections: crawling, parsing, table export and per-paper performance. See the [concise M1/M2 summary](crawling_stats.md#colab-summary). The scope is 5,000 papers, 6,348 discovered versions, 6,331 versions without download errors and 17 download errors.
 
 ## Headline numbers
 
@@ -73,4 +73,4 @@ The milestone chapters explain methods, coverage and limitations. [Evidence audi
 
 The included `src/benchmark.py` and `src/benchmark_parse.py` define the measurements. `src/make_report_data.py` exports the small report inputs from existing local results. Those exports are retained unchanged for this report. The repository README documents a Python virtual environment, MyST execution and GitHub Pages deployment. No API keys or raw corpus are needed to rebuild the book.
 
-The [official M1 requirements](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/) and [official M2 requirements](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/parsing/) are the audit baseline. [Evidence audit](crawling_stats.md) documents gaps, and the [Colab protocol](colab_benchmarks.md) separates required future CPU-only measurements from existing Windows measurements.
+The [official M1 requirements](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/) and [official M2 requirements](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/parsing/) are the audit baseline. [Evidence audit](crawling_stats.md) documents gaps, and the [Colab benchmark](colab_benchmarks.md) separates student-reported CPU-only results and earlier sample PSS from existing Windows measurements.

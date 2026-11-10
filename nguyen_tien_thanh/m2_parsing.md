@@ -28,7 +28,7 @@ Milestone 2 turns the raw LaTeX sources crawled in Milestone 1 into structured d
 - **Deduplicate** reference entries and full-text content across the versions of a publication.
 - Measure the success rate, running time, memory footprint and output size of the parser.
 
-All numbers and figures on this page are generated while the book is compiled, from the small result files in `m2_data/`
+Historical Windows numbers and figures on this page are generated while the book is compiled, from the small result files in `m2_data/`
 (`summary.json`, `papers.csv`, `samples.csv`, `tables_stats.json`, `kind_counts.json`, `failures.json`, `example.json`).
 
 ```{code-cell} python
@@ -261,7 +261,7 @@ display(ru.kv_table([
 
 ### 5.3 Windows environment — not the required Colab testbed
 
-The current measured run is Windows-only. No Google Colab CPU-only parser runtime, peak RAM or final storage measurement has been collected. [Colab benchmark protocol](colab_benchmarks.md) keeps those future runs separate.
+The full-corpus measured run stored in `m2_data/` is Windows-only. The separate [Colab benchmark](colab_benchmarks.md) reports previously measured sample PSS and student-reported full-corpus results; it does not replace this run or its actual output statistics.
 
 ```{code-cell} python
 :tags: [hide-input]
@@ -281,6 +281,46 @@ The worker-time column is elapsed time inside a worker, despite the summary fiel
 Per-publication `parsed.json` files and merged JSONL tables are alternative representations of the same results. Their sizes are reported separately; neither is the size of the original downloaded corpus. The 331 empty versions include 17 missing source directories, not only PDF-only papers. The two `no_root_file` failures remain visible above. Exact-text deduplication does not detect paraphrases or semantic equivalence; bibliography merging remains heuristic.
 
 The benchmark invokes `parse.py` without `--export`, so merged-table generation is not included in its wall time. The reported merged-table sizes describe existing artifacts; the summary alone does not establish when those tables were regenerated. Root-cause inspection of the two failures and executable checks of deduplication are in the [evidence audit](crawling_stats.md). These checks do not change historical results or prove every parsed sentence correct.
+
+### 5.5 Google Colab CPU parsing benchmark
+
+The student reports completing a new **Google Colab CPU run for 5,000 publications** and supplies the timing results below. The new run's raw logs and benchmark summaries are not available in the repository, so these are **student-reported full-corpus results**, not independently verified measurements. PSS values are previously measured Colab sample values, not full-run memory measurements. Historical Windows exports and corpus-quality statistics remain unchanged: **6,348 discovered versions**, **6,331 versions without download errors**, and **17 download errors**.
+
+| Metric | Student-reported Colab full-corpus result |
+|---|---:|
+| Total papers | 5,000 |
+| Parsing workers | 2 |
+| Parsing wall time | 561.64 s |
+| Parsing duration | 9 min 21.64 s |
+| Average time per paper | 0.1123 s |
+
+Measured Colab sample PSS: **41.42 MiB peak**, **31.02 MiB average**. These are separate from the historical Windows RSS measurements.
+
+The actual Windows full-corpus statistics remain **5,000 publications processed**, **6,348 discovered versions**, **6,015 parsed versions**, **331 empty versions** (313 PDF-only, 17 missing source directory, 1 no TeX), and **2 failed versions**. There are **0 publication errors** and **0 missing publications**. The actual Windows parsing wall time remains **408.362 s**, peak RSS **989.85 MiB**, average RSS **867.92 MiB**, and parsed JSON size **1,012.74 MiB**.
+
+Actual Windows deduplication reduced elements from **2,964,362** to **2,408,228** (**556,134 removed; 18.76%**), with **2,958,347 hierarchy rows**, and bibliography records from **744,894** to **510,849** (**234,045 removed; 31.42%**). Removing duplicate records improves data quality and reduces storage requirements. No separately verified Colab output counts are available, so these historical totals are preserved. Parsing processes local LaTeX sources without repeated external API requests; the reported Colab run uses two parallel workers.
+
+### 5.6 Google Colab table export benchmark
+
+| Metric | Student-reported Colab full-corpus result |
+|---|---:|
+| Table export time | 50.80 s |
+| Parsing time | 561.64 s |
+| Parsing + export | 612.44 s |
+| Combined duration | 10 min 12.44 s |
+
+Parsing wall time excludes table export; **612.44 s** is the combined duration, not the parsing wall time.
+
+The actual full-corpus Windows tables remain:
+
+| Table | Rows | Size (MiB) |
+|---|---:|---:|
+| `elements.jsonl` | 2,408,228 | 585.51 |
+| `hierarchy.jsonl` | 2,958,347 | 305.75 |
+| `bibtex.jsonl` | 510,849 | 148.42 |
+| **Total** | **5,877,424** | **1,039.68** |
+
+See the [per-paper performance](colab_benchmarks.md#colab-per-paper).
 
 ## 6. Summary
 

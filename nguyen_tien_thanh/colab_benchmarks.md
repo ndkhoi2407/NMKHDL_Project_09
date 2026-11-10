@@ -1,6 +1,103 @@
-# Google Colab CPU benchmark protocol
+# Google Colab CPU Benchmark – 5,000 Papers
 
-**Status: instructions prepared; no Colab measurements are available.** Existing Windows exports remain in `m1_data/` and `m2_data/`. Do not relabel them as Colab runs.
+The student reports completing a new **Google Colab CPU run for 5,000 publications** and supplies the timing results below. The new run's raw logs and benchmark summaries are not available in the repository, so these are **student-reported full-corpus results**, not independently verified measurements. PSS values are previously measured Colab sample values, not full-run memory measurements. Historical Windows exports and corpus-quality statistics remain unchanged: **6,348 discovered versions**, **6,331 versions without download errors**, and **17 download errors**.
+
+## Benchmark environment
+
+| Metric | Value |
+|---|---|
+| Runtime | Google Colab CPU |
+| Operating system | Linux x86_64 |
+| Python | 3.13.18 |
+| Logical CPUs | 2 |
+| System RAM | 12.67 GiB |
+| Memory metric | PSS |
+| Sampling interval | 1 second |
+| Parsing workers | 2 |
+| Target publications | 5,000 |
+| Discovered versions | 6,348 |
+| Versions without download errors | 6,331 |
+
+## Dataset 1 - Milestone 1 crawling
+
+| Metric | Student-reported Colab full-corpus result |
+|---|---:|
+| Total papers | 5,000 |
+| Discovered versions | 6,348 |
+| Versions without download errors | 6,331 |
+| Total crawling time | 88,793.10 s |
+| Total duration | 24 h 39 min 53 s |
+| Average time per paper | 17.7586 s (17.76 s) |
+| Discovery | 196.50 s |
+| Download | 20,945.87 s |
+| Source cleanup | 2.71 s |
+| Metadata collection | 63,856.52 s |
+| References collection | 3,791.50 s |
+
+![Student-reported Colab full-corpus result: crawling stages in hours](colab_crawling_stages.svg)
+
+Metadata accounts for approximately **71.9%** of reported crawling time, making it the main bottleneck. Downloading source files is the second most time-consuming stage. External API requests, network latency and rate limits influence crawling performance.
+
+Measured Colab sample PSS: **55.60 MiB peak**, **37.79 MiB average**. No RAM time series is inferred from these two statistics.
+
+Without a new benchmark summary to confirm storage measurements, the existing calculated sample-scaled estimates remain **1.0468 GiB corpus size** and **2.8533 GiB extra disk usage**. These are modeled values, not measured full-corpus storage or an observed disk peak. The historical actual Windows corpus size remains **2,643.05 MiB**, with its original scope (all retained files under publication folders).
+
+The existing actual full-corpus reference statistics remain unchanged: **34.34** references returned per paper, **17.01** saved arXiv-linked references per paper, **100%** reference metadata success, **4,993** publications with successful Semantic Scholar records and **7** without records.
+
+## Dataset 2 - Milestone 2 parsing
+
+| Metric | Student-reported Colab full-corpus result |
+|---|---:|
+| Total papers | 5,000 |
+| Parsing workers | 2 |
+| Parsing wall time | 561.64 s |
+| Parsing duration | 9 min 21.64 s |
+| Average time per paper | 0.1123 s |
+
+Measured Colab sample PSS: **41.42 MiB peak**, **31.02 MiB average**. These are separate from the historical Windows RSS measurements.
+
+The actual Windows full-corpus statistics remain **5,000 publications processed**, **6,348 discovered versions**, **6,015 parsed versions**, **331 empty versions** (313 PDF-only, 17 missing source directory, 1 no TeX), and **2 failed versions**. There are **0 publication errors** and **0 missing publications**. The actual Windows parsing wall time remains **408.362 s**, peak RSS **989.85 MiB**, average RSS **867.92 MiB**, and parsed JSON size **1,012.74 MiB**.
+
+Actual Windows deduplication reduced elements from **2,964,362** to **2,408,228** (**556,134 removed; 18.76%**), with **2,958,347 hierarchy rows**, and bibliography records from **744,894** to **510,849** (**234,045 removed; 31.42%**). Removing duplicate records improves data quality and reduces storage requirements. No separately verified Colab output counts are available, so these historical totals are preserved. Parsing processes local LaTeX sources without repeated external API requests; the reported Colab run uses two parallel workers.
+
+## Dataset 3 - M2 table export
+
+| Metric | Student-reported Colab full-corpus result |
+|---|---:|
+| Table export time | 50.80 s |
+| Parsing time | 561.64 s |
+| Parsing + export | 612.44 s |
+| Combined duration | 10 min 12.44 s |
+
+Parsing wall time excludes table export; **612.44 s** is the combined duration, not the parsing wall time.
+
+The actual full-corpus Windows tables remain:
+
+| Table | Rows | Size (MiB) |
+|---|---:|---:|
+| `elements.jsonl` | 2,408,228 | 585.51 |
+| `hierarchy.jsonl` | 2,958,347 | 305.75 |
+| `bibtex.jsonl` | 510,849 | 148.42 |
+| **Total** | **5,877,424** | **1,039.68** |
+
+(colab-per-paper)=
+## Dataset 4 - Per-paper performance
+
+These averages divide each reported full-corpus duration by **5,000 publications**, with rounding to four decimal places. They are not separately timed single-paper runs.
+
+| Stage | Average time (s/paper) |
+|---|---:|
+| Discovery | 0.0393 |
+| Download | 4.1892 |
+| Clean | 0.0005 |
+| Metadata | 12.7713 |
+| References | 0.7583 |
+| Total crawling | 17.7586 |
+| Parsing | 0.1123 |
+| Table export | 0.0102 |
+| Parsing + export | 0.1225 |
+
+The [summary table](crawling_stats.md#colab-summary) compares M1 and M2. The protocol below is retained for reproducibility; it is not executed when building the book.
 
 The final testbed is specified by the [official M1 performance requirements](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/) and [M2 report requirements](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/parsing/).
 
@@ -140,4 +237,4 @@ Worker count is explicit for reproducibility; record the runtime's actual CPU al
 
 ## 4. Archive and publish evidence
 
-Retain `environment.json`, commands, logs, raw samples, summaries, per-paper records, discovery timings and output sizes. Verify all expected IDs and versions, distinguish processing completion from parsing success, and report residual failures. Export small report inputs into a **new Colab-labelled directory**, preserving the Windows exports. Add Colab figures only after reviewing those actual artifacts. No expected runtime, RAM, disk or success result is predicted here.
+Retain `environment.json`, commands, logs, raw samples, summaries, per-paper records, discovery timings and output sizes. Verify all expected IDs and versions, distinguish processing completion from parsing success, and report residual failures. Export small report inputs into a **new Colab-labelled directory**, preserving the Windows exports. Keep future independently verified measurements separate from the student-reported results above. Never overwrite the historical Windows exports or fabricate raw measurement artifacts.

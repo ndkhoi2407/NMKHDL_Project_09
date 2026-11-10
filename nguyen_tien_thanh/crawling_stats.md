@@ -16,6 +16,28 @@ kernelspec:
 
 This page reads only the small `m1_data/` and `m2_data/` exports. The original `data/` corpus is neither required nor published. Checks compare independent exported representations; they establish internal consistency, not a new crawl or a manual validation of every parsed sentence.
 
+(colab-summary)=
+## Google Colab CPU Benchmark – 5,000 Papers
+
+| Metric | Milestone 1 | Milestone 2 |
+|---|---:|---:|
+| Publications | 5,000 | 5,000 |
+| Discovered versions | 6,348 | 6,348 |
+| Processing time | 88,793.10 s | 561.64 s |
+| Processing duration | 24 h 39 min 53 s | 9 min 21.64 s |
+| Average time per paper | 17.76 s | 0.1123 s |
+| Table export time | N/A | 50.80 s |
+| Parsing + export | N/A | 612.44 s |
+
+The following memory figures come from the **previously measured Colab sample**, not the new full-corpus run:
+
+| Sample memory (PSS) | M1 | M2 |
+|---|---:|---:|
+| Peak | 55.60 MiB | 41.42 MiB |
+| Average | 37.79 MiB | 31.02 MiB |
+
+*Provenance: full-corpus timings are student-reported results of the new Colab run; raw logs and summaries are unavailable for independent verification. Per-paper averages divide the supplied duration by 5,000. Storage estimates retain their calculated status. Historical Windows statistics and the 17 download errors are unchanged. See the [Colab benchmark](colab_benchmarks.md) for all four sections and the environment.*
+
 ## Official requirements audit
 
 Baseline: [M1 specification](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/crawling/), [M2 specification](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/parsing/) and [project logistics](https://hcmus-cs-ta.github.io/lab-book/intro-ds/statement/). PASS means the stated check is supported; PARTIAL means a limitation remains; FAIL means a requirement is currently unmet. This is an implementation audit, not an instructor-assigned grade.

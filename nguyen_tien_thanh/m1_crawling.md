@@ -28,7 +28,7 @@ Milestone 1 collects scientific papers from arXiv. Its goals are:
 - Keep the download state of every item so that the crawl can be resumed and audited.
 - Prepare the working corpus that Milestone 2 (parsing) and Milestone 3 (matching) consume.
 
-All numbers and figures on this page are generated while the book is compiled, from the small result files in `m1_data/`
+Historical Windows numbers and figures on this page are generated while the book is compiled, from the small result files in `m1_data/`
 (`summary.json`, `papers.csv`, `samples.csv`) produced by the benchmark script.
 
 ```{code-cell} python
@@ -274,7 +274,7 @@ if "disk_extra_mb" in samples:
 
 ### 5.3 Windows environment — not the required Colab testbed
 
-The recorded Windows results do not satisfy the required final Google Colab CPU-only benchmark. Cold-start wall time, complete discovery time, peak/average RAM, a separately measured single-paper trial and peak required disk remain unavailable. [Colab benchmark protocol](colab_benchmarks.md) describes how to obtain new evidence without overwriting these exports.
+The recorded Windows results do not satisfy the required final Google Colab CPU-only benchmark. For that historical Windows snapshot, cold-start wall time, complete discovery time, peak/average RAM, a separately measured single-paper trial and peak required disk remain unavailable. The separate [Colab benchmark](colab_benchmarks.md) presents the student-reported full-corpus results and previously measured sample PSS without overwriting these exports.
 
 ```{code-cell} python
 :tags: [hide-input]
@@ -288,6 +288,36 @@ display(ru.kv_table([
     ("Remaining errors", R.get("remaining_errors")),
 ]))
 ```
+
+### 5.4 Google Colab CPU benchmark
+
+The student reports completing a new **Google Colab CPU run for 5,000 publications** and supplies the timing results below. The new run's raw logs and benchmark summaries are not available in the repository, so these are **student-reported full-corpus results**, not independently verified measurements. PSS values are previously measured Colab sample values, not full-run memory measurements. Historical Windows exports and corpus-quality statistics remain unchanged: **6,348 discovered versions**, **6,331 versions without download errors**, and **17 download errors**.
+
+| Metric | Student-reported Colab full-corpus result |
+|---|---:|
+| Total papers | 5,000 |
+| Discovered versions | 6,348 |
+| Versions without download errors | 6,331 |
+| Total crawling time | 88,793.10 s |
+| Total duration | 24 h 39 min 53 s |
+| Average time per paper | 17.7586 s (17.76 s) |
+| Discovery | 196.50 s |
+| Download | 20,945.87 s |
+| Source cleanup | 2.71 s |
+| Metadata collection | 63,856.52 s |
+| References collection | 3,791.50 s |
+
+![Student-reported Colab full-corpus result: crawling stages in hours](colab_crawling_stages.svg)
+
+Metadata accounts for approximately **71.9%** of reported crawling time, making it the main bottleneck. Downloading source files is the second most time-consuming stage. External API requests, network latency and rate limits influence crawling performance.
+
+Measured Colab sample PSS: **55.60 MiB peak**, **37.79 MiB average**. No RAM time series is inferred from these two statistics.
+
+Without a new benchmark summary to confirm storage measurements, the existing calculated sample-scaled estimates remain **1.0468 GiB corpus size** and **2.8533 GiB extra disk usage**. These are modeled values, not measured full-corpus storage or an observed disk peak. The historical actual Windows corpus size remains **2,643.05 MiB**, with its original scope (all retained files under publication folders).
+
+The existing actual full-corpus reference statistics remain unchanged: **34.34** references returned per paper, **17.01** saved arXiv-linked references per paper, **100%** reference metadata success, **4,993** publications with successful Semantic Scholar records and **7** without records.
+
+See the [environment and per-paper averages](colab_benchmarks.md).
 
 ## 6. Summary
 
