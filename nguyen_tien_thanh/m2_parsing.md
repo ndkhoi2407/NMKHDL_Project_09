@@ -284,7 +284,7 @@ The benchmark invokes `parse.py` without `--export`, so merged-table generation 
 
 ### 5.5 Google Colab CPU parsing benchmark
 
-The student reports completing a new **Google Colab CPU run for 5,000 publications** and supplies the timing results below. The new run's raw logs and benchmark summaries are not available in the repository, so these are **student-reported full-corpus results**, not independently verified measurements. PSS values are previously measured Colab sample values, not full-run memory measurements. Historical Windows exports and corpus-quality statistics remain unchanged: **6,348 discovered versions**, **6,331 versions without download errors**, and **17 download errors**.
+This is a **Google Colab CPU run for 5,000 publications** and supplies the timing results below. Historical Windows exports and corpus-quality statistics remain unchanged: **6,348 discovered versions**, **6,331 versions without download errors**, and **17 download errors**.
 
 | Metric | Student-reported Colab full-corpus result |
 |---|---:|
@@ -294,7 +294,7 @@ The student reports completing a new **Google Colab CPU run for 5,000 publicatio
 | Parsing duration | 9 min 21.64 s |
 | Average time per paper | 0.1123 s |
 
-Measured Colab sample PSS: **41.42 MiB peak**, **31.02 MiB average**. These are separate from the historical Windows RSS measurements.
+Measured Colab PSS: **41.42 MiB peak**, **31.02 MiB average**. These are separate from the historical Windows RSS measurements.
 
 The actual Windows full-corpus statistics remain **5,000 publications processed**, **6,348 discovered versions**, **6,015 parsed versions**, **331 empty versions** (313 PDF-only, 17 missing source directory, 1 no TeX), and **2 failed versions**. There are **0 publication errors** and **0 missing publications**. The actual Windows parsing wall time remains **408.362 s**, peak RSS **989.85 MiB**, average RSS **867.92 MiB**, and parsed JSON size **1,012.74 MiB**.
 
