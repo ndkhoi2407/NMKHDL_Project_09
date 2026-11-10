@@ -56,7 +56,7 @@ Measured Colab sample PSS: **41.42 MiB peak**, **31.02 MiB average**. These are 
 
 The actual Windows full-corpus statistics remain **5,000 publications processed**, **6,348 discovered versions**, **6,015 parsed versions**, **331 empty versions** (313 PDF-only, 17 missing source directory, 1 no TeX), and **2 failed versions**. There are **0 publication errors** and **0 missing publications**. The actual Windows parsing wall time remains **408.362 s**, peak RSS **989.85 MiB**, average RSS **867.92 MiB**, and parsed JSON size **1,012.74 MiB**.
 
-Actual Windows deduplication reduced elements from **2,964,362** to **2,408,228** (**556,134 removed; 18.76%**), with **2,958,347 hierarchy rows**, and bibliography records from **744,894** to **510,849** (**234,045 removed; 31.42%**). Removing duplicate records improves data quality and reduces storage requirements. No separately verified Colab output counts are available, so these historical totals are preserved. Parsing processes local LaTeX sources without repeated external API requests; the reported Colab run uses two parallel workers.
+Actual Windows deduplication reduced elements from **2,964,362** to **2,408,228** (**556,134 removed; 18.76%**), with **2,958,347 hierarchy rows**, and bibliography records from **744,894** to **510,849** (**234,045 removed; 31.42%**). Removing duplicate records improves data quality and reduces storage requirements. No separately verified Colab output counts are available, so these historical totals are preserved. Parsing processes local LaTeX sources without repeated external API requests; the reported Colab run uses two parallel workers
 
 ## Dataset 3 - M2 table export
 
