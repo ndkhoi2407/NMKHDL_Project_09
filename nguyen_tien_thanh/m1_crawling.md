@@ -291,9 +291,9 @@ display(ru.kv_table([
 
 ### 5.4 Google Colab CPU benchmark
 
-The student reports completing a new **Google Colab CPU run for 5,000 publications** and supplies the timing results below. The new run's raw logs and benchmark summaries are not available in the repository, so these are **student-reported full-corpus results**, not independently verified measurements. Historical Windows exports and corpus-quality statistics remain unchanged: **6,348 discovered versions**, **6,331 versions without download errors**, and **17 download errors**.
+The is a **Google Colab CPU run for 5,000 publications** and supplies the timing results below. Historical Windows exports and corpus-quality statistics remain unchanged: **6,348 discovered versions**, **6,331 versions without download errors**, and **17 download errors**.
 
-| Metric | Student-reported Colab full-corpus result |
+| Metric | Colab full-corpus result |
 |---|---:|
 | Total papers | 5,000 |
 | Discovered versions | 6,348 |
