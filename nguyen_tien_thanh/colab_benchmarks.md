@@ -1,6 +1,6 @@
-# Google Colab CPU Benchmark – 5,000 Papers
+# Google Colab CPU Benchmark
 
-The student reports completing a new **Google Colab CPU run for 5,000 publications** and supplies the timing results below. The new run's raw logs and benchmark summaries are not available in the repository, so these are **student-reported full-corpus results**, not independently verified measurements. PSS values are previously measured Colab sample values, not full-run memory measurements. Historical Windows exports and corpus-quality statistics remain unchanged: **6,348 discovered versions**, **6,331 versions without download errors**, and **17 download errors**.
+The student reports completing a new **Google Colab CPU run for 5,000 publications** and supplies the timing results below. Historical Windows exports and corpus-quality statistics remain unchanged: **6,348 discovered versions**, **6,331 versions without download errors**, and **17 download errors**.
 
 ## Benchmark environment
 
@@ -39,8 +39,6 @@ The student reports completing a new **Google Colab CPU run for 5,000 publicatio
 Metadata accounts for approximately **71.9%** of reported crawling time, making it the main bottleneck. Downloading source files is the second most time-consuming stage. External API requests, network latency and rate limits influence crawling performance.
 
 Measured Colab sample PSS: **55.60 MiB peak**, **37.79 MiB average**. No RAM time series is inferred from these two statistics.
-
-Without a new benchmark summary to confirm storage measurements, the existing calculated sample-scaled estimates remain **1.0468 GiB corpus size** and **2.8533 GiB extra disk usage**. These are modeled values, not measured full-corpus storage or an observed disk peak. The historical actual Windows corpus size remains **2,643.05 MiB**, with its original scope (all retained files under publication folders).
 
 The existing actual full-corpus reference statistics remain unchanged: **34.34** references returned per paper, **17.01** saved arXiv-linked references per paper, **100%** reference metadata success, **4,993** publications with successful Semantic Scholar records and **7** without records.
 
