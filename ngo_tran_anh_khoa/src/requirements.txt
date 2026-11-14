@@ -1,0 +1,6 @@
+arxiv
+requests
+psutil
+pandas
+matplotlib
+bibtexparser>=2.0

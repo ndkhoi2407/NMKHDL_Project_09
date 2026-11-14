@@ -1,0 +1,48 @@
+{
+  "args": {
+    "prefix": "2608",
+    "start": 24007,
+    "end": 29006,
+    "limit": null,
+    "fresh_discover": false,
+    "skip": "",
+    "workdir": ".",
+    "timings": null
+  },
+  "started_at": "2026-10-24T12:13:21+07:00",
+  "total_seconds": 71.91,
+  "success": true,
+  "remaining_errors": {
+    "download": 19,
+    "metadata": 0,
+    "references": 0
+  },
+  "steps": [
+    {
+      "name": "discover",
+      "seconds": 0.0,
+      "returncode": 0,
+      "skipped": true
+    },
+    {
+      "name": "download",
+      "seconds": 69.85,
+      "returncode": 0
+    },
+    {
+      "name": "clean",
+      "seconds": 0.24,
+      "returncode": 0
+    },
+    {
+      "name": "metadata",
+      "seconds": 0.88,
+      "returncode": 0
+    },
+    {
+      "name": "references",
+      "seconds": 0.92,
+      "returncode": 0
+    }
+  ]
+}

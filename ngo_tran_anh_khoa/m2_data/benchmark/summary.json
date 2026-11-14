@@ -1,0 +1,21 @@
+{
+  "publications_requested": 5000,
+  "publications_ok": 4909,
+  "publications_partial": 91,
+  "publications_error": 0,
+  "versions_expected": 6037,
+  "versions_parsed": 5631,
+  "versions_empty": 305,
+  "versions_error": 101,
+  "elements_rows": 3039897,
+  "hierarchy_rows": 3676875,
+  "hierarchy_integrity_errors": 0,
+  "bibtex_rows": 539202,
+  "elements_before_dedup": 3682739,
+  "bibtex_before_dedup": 858163,
+  "version_parse_success_rate": 0.9824,
+  "wall_seconds": 2624.851,
+  "average_seconds_per_publication": 0.525,
+  "process_rss_mb_at_end": 2930.1,
+  "output_storage_mb": 1454.707
+}
