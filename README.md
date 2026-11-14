@@ -82,8 +82,6 @@ See [MILESTONE1.md](./MILESTONE1.md) for detailed crawling methodology and rate-
 Milestone 2 operates completely offline and reads the Milestone 1 data directory without mutating raw records.
 
 ```powershell
-# Small trial run (20 papers)
-py -3.11 -m src.milestone2.cli --output .\data --max-papers 20
 
 # Full assigned range
 py -3.11 -m src.milestone2.cli --output .\data
