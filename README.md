@@ -1,9 +1,8 @@
-﻿# NMKHDL GROUP 09 — End-to-End Pipeline & Source Code (Milestones 1, 2 & 3)
+﻿# NMKHDL GROUP 09  (Milestones 1, 2 & 3)
 
 **HCMUS — Introduction to Data Science | Group 09**  
-**Report repo :** (https://github.com/thieuquang18/NMKHDL_report).  
 **Group repository:** [ndkhoi2407/NMKHDL_Project_09](https://github.com/ndkhoi2407/NMKHDL_Project_09)  
-**Published Jupyter Book:** [ndkhoi2407.github.io/NMKHDL_Project_09](https://ndkhoi2407.github.io/NMKHDL_Project_09/)  
+**Published Jupyter Book:** ([https://ndkhoi2407.github.io/NMKHDL_Project_09/]) 
 
 ---
 
@@ -25,15 +24,6 @@ Milestone 3: Publication-scoped candidate ranking & citation-to-reference matchi
 Train / Valid / Test -> Top-5 Predictions -> MRR@5 Evaluation -> Sharded Parquet Export
 ```
 
-### Overall Pipeline Results
-
-| Component | Scope / Assigned Metric | Recorded Result |
-|---|---|---|
-| **Milestone 1 — Crawling** | Assigned publications | **5,000** |
-| | Total publication versions | **6,417** |
-| | Crawled references (S2) | **80,752** |
-| **Milestone 2 — Parsing** | Parsed versions | **6,105** (312 empty-source accounted for) |
-| | Standardized & deduplicated BibTeX | **383,892** |
 
 ---
 
@@ -53,7 +43,7 @@ py -3.11 -m pip install -r .\src\milestone3\requirements.txt
 
 ## 3. Running the Test Suite
 
-Run the full offline test suite (28 integration and unit tests covering Milestones 1, 2, and 3):
+Run the full offline test suite ( unit tests covering Milestones 1, 2):
 
 ```powershell
 py -3.11 -m unittest discover -s .\tests -v
@@ -92,8 +82,6 @@ See [MILESTONE1.md](./MILESTONE1.md) for detailed crawling methodology and rate-
 Milestone 2 operates completely offline and reads the Milestone 1 data directory without mutating raw records.
 
 ```powershell
-# Small trial run (20 papers)
-py -3.11 -m src.milestone2.cli --output .\data --max-papers 20
 
 # Full assigned range
 py -3.11 -m src.milestone2.cli --output .\data
@@ -130,22 +118,16 @@ The compiled site renders all 3 milestones (`milestone1.ipynb`, `milestone2.ipyn
 │   │   ├── latex.py                # TeX AST, hierarchy & sentence extraction
 │   │   ├── bibliography.py         # BibTeX normalization & union
 │   │   └── pipeline.py             # Pipeline runner
-│   └── milestone3/                 # Milestone 3: reference matching
-│       ├── matching.py             # 10 candidate features & heuristic scoring
-│       ├── cli.py                  # prepare, train, evaluate (MRR@5)
-│       ├── export.py               # 6-table Parquet exporter
-│       └── publish.py              # HF dataset publisher
+│
 ├── tests/                          # 28 offline unit & integration tests
 ├── report_repo/                    # Jupyter Book report source & data
 │   ├── index.md                    # Landing page
 │   ├── milestone1.ipynb            # Milestone 1 report
 │   ├── milestone2.ipynb            # Milestone 2 report
-│   ├── milestone3.ipynb            # Milestone 3 report (with MRR@5 equation)
 │   ├── report_data/                # Aggregated summary & benchmark data
 │   └── myst.yml                    # MyST configuration
 ├── MILESTONE1.md                   # Milestone 1 specification & audit notes
 ├── MILESTONE2.md                   # Milestone 2 specification & audit notes
-├── MILESTONE3.md                   # Milestone 3 specification & audit notes
 └── README.md                       # This comprehensive documentation
 ```
 

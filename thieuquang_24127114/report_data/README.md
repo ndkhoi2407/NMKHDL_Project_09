@@ -23,3 +23,8 @@ corpora are not included.
 The canonical report source and GitHub Pages deployment remain in
 [`NMKHDL_report`](https://github.com/thieuquang18/NMKHDL_report/tree/24127114).
 The live book is at <https://thieuquang18.github.io/NMKHDL_report/>.
+
+## Individual report data - 24127114
+
+This directory contains the report notebooks, configuration,
+benchmarks, and supporting data for Milestones 1, 2, and 3.

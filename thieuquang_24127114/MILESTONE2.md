@@ -1,4 +1,4 @@
-# Milestone 2 — Hierarchical Parsing and Standardization
+# Milestone 2 Extension — keep Milestone 1 untouched
 
 Official specifications:
 
@@ -105,12 +105,7 @@ These JSONL schemas follow the table columns described in the assignment, and th
 
 ## Report and tests
 
-The `--report` option creates only the Milestone 2 aggregate summary and
-status files in the selected report repository's `report_data/` directory.
-The report repository is separate from the source-code repository and contains
-the cumulative Milestone 1 and 2 notebooks. Its `_toc.yml` lists both chapters;
-build the book from the report repository root with `jupyter-book build .`.
-The report's GitHub Actions workflow deploys the built book to GitHub Pages.
+The `--report ../report_repo` option **creates only new** `report_data/milestone2_summary.json` and `report_data/milestone2_status.csv`. The original Mile 1 notebook, original `_toc.yml`, report config, and report README stay byte-identical. Run `python report_repo/build_combined.py` from the root of the extracted ZIP (after installing `report_repo/requirements.txt`) to stage an expanded table of contents in a temporary directory and build a combined book without editing any original Milestone 1 files.
 
 ## Limitations (do not overclaim accuracy)
 
@@ -119,3 +114,4 @@ The report's GitHub Actions workflow deploys the built book to GitHub Pages.
 - The hierarchy is modeled as distinct cleaned elements + per-version edges. Identical repeated text within one version can share an element, making it a content-addressed graph rather than a strictly occurrence-unique tree. This matches the distinct-elements table schema but may require occurrence-level metadata for further tasks.
 - The downloaded corpus intentionally has no figure binaries; figure elements can retain caption/LaTeX references but cannot recover image pixels. Some source archives have no `.tex` or only missing `\documentclass` files.
 - Performance is environment-specific. The course requires final benchmark on **Google Colab CPU-only**; local measurements are not that benchmark. A resumed run's invocation wall time does not include prior interrupted runs.
+- Milestone 2 is a foundation for Milestone 3. This code does **not** implement Milestone 3 matching or publish the dataset.

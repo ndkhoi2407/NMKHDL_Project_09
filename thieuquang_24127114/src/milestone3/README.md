@@ -24,6 +24,10 @@ Only NEW files under `src/milestone3/` and `tests/test_milestone3.py` implement 
 
 The report notebook recomputes all 10 implemented features for candidate pairs from the reviewed labels and shows a descriptive positive-vs-negative table and chart. For the 100 reviewed citations (five publications), this produces 1,220 pairs (41 positive, 1,179 negative). Mean title-reference coverage is 0.970 vs 0.130 and character similarity is 0.869 vs 0.110 for positive vs negative pairs. Mean year-conflict values are 0.512 vs 0.833; this is a supporting signal because publication years and arXiv submission years may differ. These sample statistics illustrate feature behavior; they are not feature-importance estimates or generalization evidence.
 
+### Report notebook and CI
+
+The chapter notebook runs this feature diagnostic only when the reviewed labels and both source JSONL tables are present in a local `source_repo`. GitHub Actions does not include those local data files, so it prints a skip message and continues building the report when they are absent. This diagnostic does not retrain the model, export Parquet files, or publish a dataset.
+
 ## Windows PowerShell (from `source_repo`)
 
 ```powershell
