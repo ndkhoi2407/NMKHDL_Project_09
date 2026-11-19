@@ -1,6 +1,0 @@
-_build*/
-.venv/
-venv/
-.ipynb_checkpoints/
-__pycache__/
-*.bak
