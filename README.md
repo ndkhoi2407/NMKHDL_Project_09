@@ -9,7 +9,7 @@
 ## 1. Pipeline Overview
 
 ```text
-Assigned arXiv IDs (2607.13694 – 2607.18693)
+Assigned arXiv IDs (5000 ids)
     │
     ▼
 Milestone 1: Crawl metadata, all versions, LaTeX/BibTeX source archives, S2 references
