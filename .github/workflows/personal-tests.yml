@@ -1,0 +1,22 @@
+name: Personal Milestone Tests 24127114
+
+on:
+  push:
+    branches: ["24127114"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install dependencies
+        run: python -m pip install -r thieuquang_24127114/src/requirements.txt
+      - name: Run tests
+        run: cd thieuquang_24127114 && python -m unittest discover -s tests -p "test_*.py" -v
